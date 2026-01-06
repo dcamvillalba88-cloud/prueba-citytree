@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Tree - Gestión de Arbolado</title>
+    <link rel="stylesheet" href="css/prueba-citytree.css">
+</head>
+<body>
+    <div class="background-overlay"></div>
+    
+    <header class="main-header">
+        <div class="logo-section">
+            <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
+            <div>
+                <h1>City Tree</h1>
+                <p>Plataforma de gestión de arbolado urbano</p>
+            </div>
+        </div>
+        <div class="home-icon"><img src="assets/icons/icono inicio.png" alt="Inicio"></div>
+    </header>
+
+    <main class="container">
+        <section class="left-panel">
+            <div class="card glass">
+                <h2>Dashboard de Arbolado</h2>
+                <div class="stats-container">
+                    <div class="stat-box green-light">
+                        <span class="number">5,890</span>
+                        <span class="label">Árboles registrados</span>
+                    </div>
+                    <div class="stat-box green-medium">
+                        <span class="number">75 %</span>
+                        <span class="label">Porcentaje de avance</span>
+                    </div>
+                    <div class="stat-box green-dark">
+                        <span class="number">89</span>
+                        <span class="label">Total mantenimientos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card glass">
+                <h2>Mapa de ubicación de especies</h2>
+                <div class="map-placeholder">
+                    <p>Mapa de ubicación árboles GPS</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="right-panel">
+            <div class="card glass login-card">
+                <h3>Login empleados</h3>
+                <input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">
+                <button class="btn-login">Log In</button>
+            </div>
+
+            <div class="card glass citizen-report">
+                <h3>Reporte ciudadano</h3>
+                <div class="form-group">
+                    <label>Nombre:</label> <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label> <input type="email">
+                </div>
+                <div class="form-group">
+                    <label>Ubicación:</label> <input type="text">
+                </div>
+                <div class="form-group">
+                    <label>Descripción del problema:</label>
+                    <textarea rows="2"></textarea>
+                </div>
+                <button class="btn-send">Enviar reporte</button>
+            </div>
+        </section>
+    </main>
+
+    <section class="news-section">
+        <h2 class="news-title">Noticias y Actualizaciones</h2>
+        <div class="news-container">
+            <div class="news-item">
+                <div class="news-header">INICIA GRAN JORNADA DE SIEMBRA 2025</div>
+                <p>Más que una actividad ambiental, la jornada de siembra es una experiencia de transformación...</p>
+            </div>
+            <div class="news-item">
+                <div class="news-header">CONVOCATORIAS DE EMPLEO INGENIEROS DE CAMPO</div>
+                <p>Para las dos primeras semanas del año 2026 se abrirán convocatorias para la contratación...</p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

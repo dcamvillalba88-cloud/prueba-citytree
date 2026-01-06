@@ -1,0 +1,131 @@
+:root {
+    --primary-green: #4CAF50;
+    --dark-green: #1b5e20;
+    --light-green: #8bc34a;
+    --glass-bg: rgba(255, 255, 255, 0.2);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    background: url('../assets/images/arbolesciudad.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Efecto de fondo borroso */
+.background-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(5px);
+    z-index: -1;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.logo-section { display: flex; align-items: center; gap: 10px; }
+.logo-placeholder img { width: 100px; height: auto; }
+.logo-section h1 { margin: 0; color: #2e7d32; }
+
+.home-icon { font-size: 20px; } img { width: 100px; height: auto; }
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+/* Dashboard Stats */
+.stats-container {
+    display: flex;
+    gap: 15px;
+    justify-content: space-around;
+}
+
+.stat-box {
+    flex: 1;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+}
+
+.green-light { background: #66bb6a; }
+.green-medium { background: #43a047; }
+.green-dark { background: #1b5e20; }
+
+.number { display: block; font-size: 24px; font-weight: bold; }
+
+/* Mapa */
+.map-placeholder {
+    height: 200px;
+    background: url(assets/images/citytree1.png) center/cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px black;
+}
+
+/* Formularios y Botones */
+input, textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+    background: rgba(255,255,255,0.7);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 10px;
+    background: #cddc39;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.news-section {
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.news-container {
+    display: flex;
+    gap: 20px;
+}
+
+.news-item {
+    flex: 1;
+    border: 1px solid #ddd;
+}
+
+.news-header {
+    background: #66bb6a;
+    color: white;
+    padding: 10px;
+    font-weight: bold;
+}
