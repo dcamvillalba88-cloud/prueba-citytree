@@ -83,17 +83,20 @@ body {
 
 /* Mapa */
 .map-placeholder {
-    height: 200px;
-    background: url(assets/images/citytree1.png) center/cover;
+    height: 360px;
+    background: url("../assets/images/satelital-urbanos.jpg") center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 5px black;
+    border-radius: 20px;
+    position: relative;
+    
 }
 
-/* Formularios y Botones */
+/* Formularios */
 input, textarea {
     width: 100%;
     padding: 8px;
@@ -103,14 +106,6 @@ input, textarea {
     background: rgba(255,255,255,0.7);
 }
 
-.btn-login {
-    width: 100%;
-    padding: 10px;
-    background: #cddc39;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-}
 
 .news-section {
     background: white;
@@ -185,4 +180,120 @@ input, textarea {
     font-size: 1rem;
     margin-bottom: 1rem;
     line-height: 1.5;
+}
+
+                      /* ESTRUCTURA GENERAL botones */
+
+.container-botonesgeneral {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
+    width: 100%;
+    padding: 10px;
+    
+}
+
+/* EFECTO DE PINCHAR: Aplica a todos cuando haces clic */
+.btn-3d:active {
+    transform: translateY(4px); /* El botón baja */
+    box-shadow: 0 2px 0px rgba(0,0,0,0.5) !important; /* La sombra se encoge */
+    
+}
+
+/* COLORES ESPECÍFICOS: Solo definimos el color y la sombra inferior */
+.btn-enviarReporte {
+    background-color: #F59E0B;
+    box-shadow: 0 6px 0px #9e7711;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
+    width: 100%;
+    padding: 10px;
+    
+}
+
+
+.btn-mapa {
+    background-color: #F59E0B;
+    box-shadow: 0 6px 0px #9e7711;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
+    width: 100%;
+    padding: 10px;
+    position: absolute;
+
+}
+
+.btn-login {
+    background-color: #F59E0B;
+    box-shadow: 0 6px 0px #9e7711;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 25px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
+    width: 100%;
+    padding: 10px;
+}
+
+.home-icon  {
+    cursor: pointer;
+    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); 
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 2px solid #1b5e20;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.home-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+
 }
