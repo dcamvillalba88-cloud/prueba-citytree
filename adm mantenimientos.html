@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Tree - Gestión de Arbolado</title>
+    <link rel="stylesheet" href="css/prueba-citytree.css">
+</head>
+<body>
+    
+<header class="main-header">
+        <div class="logo-section">
+            <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
+            <div>
+                <h1>City Tree</h1>
+                <p>Plataforma de gestión de arbolado urbano</p>
+            </div>
+        </div>
+        <div><button class="btn-3d home-icon"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
+</header>
+
+<main class="container-admMantenimientos">
+    <aside class="col-mantleft">
+        <div class="card glass"> 
+            <h3>Asignacion de mantenimiento</h3>
+            
+            <div class="input-group">
+                <label>Numero de mantenimiento</label>
+                <input type="text" placeholder="numero consecutivo">
+            </div>
+
+            <div class="worker-assignment">
+                <label>Personal de mantenimiento</label>
+                <div class="worker-header">
+                    <span>Trabajador</span>
+                    <span>Asignados</span>
+                </div>
+                <div class="worker-list">
+                    <div class="worker-row">
+                        <button class="btn-3d btn-perMantenimiento">Jose Torre</button>
+                        <span class="count">7</span>
+                    </div>
+                    <div class="worker-row">
+                        <button class="btn-3d btn-perMantenimiento">Carlos Rojas</button>
+                        <span class="count">9</span>
+                    </div>
+                    <div class="worker-row">
+                        <button class="btn-3d btn-perMantenimiento">Jairo Mora</button>
+                        <span class="count">4</span>
+                    </div>
+                </div>
+            </div>
+            <p class="small-text">Seleccionar trabajador</p>
+            <button class="btn-primary">ASIGNAR</button>
+        </div>   
+    </aside>
+
+    <aside class="col-mantright">
+        <div class="fila-supadm">  
+            <div class="card glass">
+                <h2>Administración de mantenimientos</h2>  
+                <div class="adm-container">
+                    <div class="col1-adm-container">
+                        <div class="main-grid">
+                            <div class="form-left">
+                                <div class="info-block">
+                                    <label>Numero de registro unico</label>
+                                    <p class="reg-number">34546565</p>
+                                </div>
+                            </div>
+                        </div>
+                                <div class="input-group-main">
+                                    <label>Mantenimiento a realizar</label>
+                                    <input type="text" value="Poda">
+                                </div>
+                    </div>
+                    <div class="col2-adm-container">
+                        <div class="input-group-main">
+                            <label>Ingeniero de campo</label>
+                            <input type="text" value="Maria Guzman">
+                        </div>
+                        <div class="input-group-main">
+                            <label>Fecha de solicitud</label>
+                            <input type="text" placeholder="xx/xx/xxxx">
+                        </div>
+                    </div>
+                </div>            
+                    <div class="col3-adm-container">
+                        <div class="observations">
+                        <label>Obserbaciones</label>
+                        <textarea rows="4">se evidencia que el crecimiento puede afectar una line electrica</textarea>
+                    </div>  
+            </div>    
+        </div>
+            
+        <div class="fila-infoadm"> 
+            <div class="card glass">
+                <div class="map-ubicamap">
+                    <a onclick href="https://www.google.com/maps">Simulacion pines GPS</a>
+                </div>
+            </div>
+        </div>
+    </aside>
+</main>
+
+<footer>
+            <div class="footer-actions">
+                <button class="btn-finalizado">Finalizado</button>
+            </div>
+</footer>
+        
+    
+
+</body>
+</html>

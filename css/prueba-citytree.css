@@ -14,14 +14,6 @@ body {
     background-size: cover;
 }
 
-/* Efecto de fondo borroso */
-.background-overlay {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(255, 255, 255, 0.3);
-    backdrop-filter: blur(5px);
-    z-index: -1;
-}
 
 .main-header {
     display: flex;
@@ -33,16 +25,33 @@ body {
     margin-bottom: 20px;
 }
 
-.logo-section { display: flex; align-items: center; gap: 10px; }
-.logo-placeholder img { width: 100px; height: auto; }
-.logo-section h1 { margin: 0; color: #2e7d32; }
+.logo-section {
+    display: flex; 
+    align-items: center;
+    gap: 10px; }
+
+.logo-placeholder img { 
+    width: 100px; 
+    height: auto; 
+}
+
+.logo-section h1 { 
+    margin: 0; 
+    color: #2e7d32; 
+}
 .logo-section p {
     font-size: 1.2em;
     text-align: center;
     color: #F59E0B;
 }
 
-.home-icon { font-size: 20px; } img { width: 100px; height: auto; }
+.home-icon { 
+    font-size: 20px; 
+} 
+img { 
+    width: 100px;
+    height: auto; 
+}
 
 .glass {
     background: var(--glass-bg);
@@ -236,23 +245,6 @@ input, textarea {
     background-color: #e0e0e0;
 }
 
-/* Columna derecha */
-.tree-info h2 {
-    font-size: 1.8rem;
-    margin-bottom: 1.5rem;
-}
-
-.tree-info h3 {
-    font-size: 2rem;
-    margin: 0.5rem 0 1.5rem 0;
-}
-
-.tree-info p {
-    font-size: 1rem;
-    margin-bottom: 1rem;
-    line-height: 1.5;
-}
-
                       /* ESTRUCTURA GENERAL botones */
 
 .container-botonesgeneral {
@@ -355,7 +347,22 @@ input, textarea {
     border-radius: 20%;
 }
 
-
+.btn-perMantenimiento {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(17, 17, 17);
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
+}
+}
 
 
 
@@ -470,31 +477,163 @@ input, textarea {
     color: white;
 }
 
-/* Cuando haces clic (el efecto de pinchar) */
-.btn-2D:active {
-      background-color: #007BFF;
-  color: white;
-  padding: 12px 24px;
-  border: none;
-  border-radius: 8px;
-  font-family: Arial, sans-serif;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s ease; /* Hace que los cambios sean suaves */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* adm mantenimientos */
+
+.container-admMantenimientos{
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
-/* Cuando pasas el mouse por encima */
-.mi-boton:hover {
-  background-color: #0056b3;
-  transform: translateY(-2px); /* El botón sube un poquito */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+.sidebar {
+    background-color: var(--green-dark);
+    color: white;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
 }
 
-/* Cuando haces clic (el efecto de pinchar) */
-.mi-boton:active {
-  transform: translateY(0); /* Vuelve a su posición original */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  background-color: #004085;
+.sidebar h3 { margin-bottom: 20px; }
+
+.input-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+.input-group input {
+    width: 90%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    text-align: center;
 }
 
+.worker-assignment { margin: 30px 0; }
+
+.worker-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+
+.worker-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.worker-btn {
+    background-color: var(--green-bright);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 15px;
+    font-weight: bold;
+    width: 120px;
+    cursor: pointer;
+}
+
+.btn-primary {
+    background-color: var(--green-bright);
+    border: 1px solid #fff;
+    padding: 10px 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Content Area */
+.content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.reg-number {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.input-group-main { margin-bottom: 20px; }
+.input-group-main label { display: block; font-weight: bold; margin-bottom: 5px; }
+.input-group-main input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #333;
+}
+
+/* Map Section */
+.map-container {
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+
+.btn-map {
+    background-color: var(--green-bright);
+    border: none;
+    padding: 5px 20px;
+    border-radius: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Observations */
+.observations { margin-top: 30px; }
+.observations textarea {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.footer-actions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-finalizado {
+    background-color: #a2ff5e;
+    border: 2px solid #555;
+    padding: 10px 60px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+}
+
+.admin-grid {
+    column-count: 3;
+    column-gap: 40px;
+}
+
+.container-admMantenimientos {
+    display: grid;
+    column-count: 2;
+    grid-template-columns: 30% 70%;
+    min-height: 100vh;
+    column-gap: 40px;
+
+}
+
+.col-mantright {
+    display: grid;
+    row-gap: 40px;
+    grid-template-rows: 1fr 2fr;
+    height: 100vh;
+    gap: 10px;
+}
+
+.adm-container {
+    columns: 3;
+    gap: 30px;
+
+
+}

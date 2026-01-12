@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/prueba-citytree.css">
 </head>
 <body>
-
+    
     <header class="main-header">
         <div class="logo-section">
             <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
@@ -17,8 +17,12 @@
         </div>
         <div><button class="btn-3d home-icon" onclick="window.location.href='index.html'"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
     </header>
+
 <main class="admin-grid">
+    
     <aside class="column col-left">
+        <div class="card glass">
+            <h2>Gestión de mantenimientos</h2>
         <section class="card-mantenimiento solicitados">
             <h3>Mantenimientos solicitados</h3>
             <div class="list-scroll-buttons">
@@ -45,9 +49,11 @@
                 <div>Finalizados <span class="badge">6</span></div>
             </div>
         </section>
+        </div>
     </aside>
 
-    <section class="column col-center">
+    <aside class="column col-center">
+    <div class="card glass">    
         <h2>Administrador</h2>
         
         <div class="user-management">
@@ -65,33 +71,36 @@
             </table>
             <button class="btn-3d btn-adminisPersonal">Administrador personal</button>
         </div>
-
+    </div>
+    <div class="card glass">
         <div class="consulta-admi">
             <h4>Consulta de especimen</h4>
             <div class="search-bar">
                 <span class="search-icon">🔍</span>
                 <input type="text" placeholder="XXXXXXXX">
-            </div>
+            </div>     
+    </div>        
             <div class="map-placeholder">
                     <a href="ubicacion-especies.html" class="btn-3d btn-mapa">Mapa de arboles GPS</a>
             </div>        
-    </section>
+        </aside>
 
     <aside class="column col-right">
+
         <section class="card-informes">
-            <h3>Informes</h3>
-            <div class="info-box">
-                <p>Arboles registrados:</p>
-                <span class="count">5890</span>
-            </div>
-            <div class="info-box">
-                <p>porcentaje de avance:</p>
-                <span class="count">75 %</span>
-            </div>
-            <div class="info-box">
-                <p>total mantenimientos:</p>
-                <span class="count">89</span>
-            </div>
+            <h3>Informes</h3>  
+                <div class="info-box">
+                    <p>Arboles registrados:</p>
+                    <span class="count">5890</span>
+                </div>
+                <div class="info-box">
+                    <p>porcentaje de avance:</p>
+                    <span class="count">75 %</span>
+                </div>
+                <div class="info-box">
+                    <p>total mantenimientos:</p>
+                    <span class="count">89</span>
+                </div>
         </section>
 
         <section class="card-reportes-ciudadanos">
