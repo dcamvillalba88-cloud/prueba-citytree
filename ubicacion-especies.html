@@ -9,7 +9,7 @@
 <body>
     <div class="background-overlay"></div>
     
-    <header class="main-header">
+     <header class="main-header">
         <div class="logo-section">
             <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
             <div>
@@ -17,23 +17,26 @@
                 <p>Plataforma de gestión de arbolado urbano</p>
             </div>
         </div>
-        <div class="home-icon"><img src="assets/icons/icono inicio.png" alt="Inicio"></div>
+        <div><button class="btn-3d home-icon" onclick="window.location.href='index.html'"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
     </header>
-<main class="tree-detail">
+    <main class="tree-detail">
     <img class="tree-photo" src="assets/images/arbol-1.jpg">
-    <div class="tree-info">
-        <h2>Información Detallada de Árbol</h2>
-
-        <p><strong>Número de registro único</strong></p>
-        <h3>16287494</h3>
-
-        <p><strong>Especie:</strong> Ciro</p>
-        <p><strong>Nombre científico:</strong> Baccharis bogotensis benth</p>
-        <p><strong>Estado:</strong> saludable</p>
-        <p><strong>Altura:</strong> 6 mt aprox.</p>
-        <p><strong>Ubicación:</strong> zona o barrio / Dirección</p>
-        <div class="tree-map">Mapa</div>
-    </div>
-</main>
+  
+        <div class="tree-info">
+            <h2>Información Detallada de Árbol</h2>
+        <div class="card glass">
+            <p><strong>Número de registro único</strong></p>
+                <h3>16287494</h3>
+                <div class="ubicontainer">
+                    <p><strong>Especie:</strong> Ciro<strong><br><br>Altura:</strong> 6 mt aprox.</p>
+                    <p><strong>Nombre científico:</strong><br> Baccharis bogotensis benth<br><strong> Ubicación:</strong><br> zona o barrio / Dirección</p>
+                    <p><strong>Estado:</strong> saludable</p>
+                </div>
+        </div>
+        <div class="card glass">
+                <div class="map-ubicamap">
+                    <a onclick href="https://www.google.com/maps">Simulacion pines GPS</a>
+        </div>
+    </main>
 </body>
 </html>

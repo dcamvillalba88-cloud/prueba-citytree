@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>City Tree - Administrador</title>
+    <link rel="stylesheet" href="css/prueba-citytree.css">
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="logo-section">
+            <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
+            <div>
+                <h1>City Tree</h1>
+                <p>Plataforma de gestión de arbolado urbano</p>
+            </div>
+        </div>
+        <div><button class="btn-3d home-icon" onclick="window.location.href='index.html'"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
+    </header>
+<main class="admin-grid">
+    <aside class="column col-left">
+        <section class="card-mantenimiento solicitados">
+            <h3>Mantenimientos solicitados</h3>
+            <div class="list-scroll-buttons">
+                <button class="pill btn-3d btn-mantenimientoBoton">34546565</button>
+                <button class="pill btn-3d btn-mantenimientoBoton">09647836</button>
+                <button class="pill btn-3d btn-mantenimientoBoton">47698654</button>
+                <button class="pill btn-3d btn-mantenimientoBoton">10292873</button>
+                <button class="pill btn-3d btn-mantenimientoBoton">10092742</button>
+                <button class="pill btn-3d btn-mantenimientoBoton">09775323</button>
+            </div>
+        </section>
+
+        <section class="card-mantenimiento asignados">
+            <h3>Mantenimientos asignados</h3>
+            <div class="list-scroll-buttons">
+                <button class="pill btn-3d btn-mantenimientoBoton">34546565 <br> <span>M1 - Jose Torre</span></button>
+                <button class="pill btn-3d btn-mantenimientoBoton">46456755 <br> <span>M2 - Carlos Rojas</span></button>
+                <button class="pill btn-3d btn-mantenimientoBoton">46778097 <br> <span>M1 - Jose Torre</span></button>
+                <button class="pill btn-3d btn-mantenimientoBoton">98577643 <br> <span>M2 - Carlos Rojas</span></button>
+            </div>
+            <div class="status-counter">
+                <div>Pendientes <span class="badge">5</span></div>
+                <div>Asignados <span class="badge">8</span></div>
+                <div>Finalizados <span class="badge">6</span></div>
+            </div>
+        </section>
+    </aside>
+
+    <section class="column col-center">
+        <h2>Administrador</h2>
+        
+        <div class="user-management">
+            <h4>Gestion de Usuarios</h4>
+            <table class="user-table">
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Nombre</th><th>Rol</th><th>estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td>Jose Torre</td><td>Mantenimiento</td><td>Activo ▾</td></tr>
+                    <tr><td>2</td><td>Maria Guzman</td><td>Ingeniero</td><td>Activo ▾</td></tr>
+                    </tbody>
+            </table>
+            <button class="btn-3d btn-adminisPersonal">Administrador personal</button>
+        </div>
+
+        <div class="consulta-admi">
+            <h4>Consulta de especimen</h4>
+            <div class="search-bar">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="XXXXXXXX">
+            </div>
+            <div class="map-placeholder">
+                    <a href="ubicacion-especies.html" class="btn-3d btn-mapa">Mapa de arboles GPS</a>
+            </div>        
+    </section>
+
+    <aside class="column col-right">
+        <section class="card-informes">
+            <h3>Informes</h3>
+            <div class="info-box">
+                <p>Arboles registrados:</p>
+                <span class="count">5890</span>
+            </div>
+            <div class="info-box">
+                <p>porcentaje de avance:</p>
+                <span class="count">75 %</span>
+            </div>
+            <div class="info-box">
+                <p>total mantenimientos:</p>
+                <span class="count">89</span>
+            </div>
+        </section>
+
+        <section class="card-reportes-ciudadanos">
+            <h3>Reporte ciudadano</h3>
+            <h4>Consulta pendiente</h4>
+                <div class="list-scroll-buttons">
+                    <button class="pill btn-3d btn-reporteCiudadano">Reporte 1</button>
+                    <button class="pill btn-3d btn-reporteCiudadano">Reporte 2</button>
+                    <button class="pill btn-3d btn-reporteCiudadano">Reporte 3</button>
+            </div>
+        </section>
+    </aside>
+</main>

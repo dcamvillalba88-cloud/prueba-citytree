@@ -81,20 +81,71 @@ body {
 
 .number { display: block; font-size: 24px; font-weight: bold; }
 
-/* Mapa */
+                       /* Mapas */
 .map-placeholder {
     height: 360px;
     background: url("../assets/images/satelital-urbanos.jpg") center/cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    position: relative;
+    border-radius: 20px;  
+}
+
+.map-placeholder a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.5);
     color: white;
     font-weight: bold;
     text-shadow: 1px 1px 5px black;
+    padding: 10px 20px;
     border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.map-placeholder img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+/*mapa ubicacion-especies*/
+.map-ubicamap {
+    height: 360px;
+    background: url("../assets/images/satelital-imagen.jpg") center/cover;
     position: relative;
+    border-radius: 20px;
+}
+.map-ubicamap a {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    background-color: rgba(0, 0, 0, 0.459);
+    color: white;
+    font-weight: bold;
+    text-shadow: 1px 1px 5px rgb(232, 248, 6);
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    display: inline-block;
+    border-radius: solid 20px;
+    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
+    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
     
 }
+
+
+.map-ubicamap  img {
+    width: 100%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+
 
 /* Formularios */
 input, textarea {
@@ -136,6 +187,7 @@ input, textarea {
     display: flex;
     gap: 2rem;
     padding: 2rem 4rem;
+    position: relative;
 }
 
 .tree-photo {
@@ -146,6 +198,25 @@ input, textarea {
 
 .tree-info {
     flex: 1.5;
+}
+
+/* Responsive para pantallas pequeñas */
+@media (max-width: 768px) {
+    .tree-detail {
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
+    }
+    .tree-photo {
+        width: 100%;
+        height: auto;
+    }
+    .tree-info {
+        flex: none;
+    }
+    .map-ubespecie {
+        height: 120px;
+    }
 }
 
 /* Simulación del mapa */
@@ -205,8 +276,8 @@ input, textarea {
 
 /* EFECTO DE PINCHAR: Aplica a todos cuando haces clic */
 .btn-3d:active {
-    transform: translateY(4px); /* El botón baja */
-    box-shadow: 0 2px 0px rgba(0,0,0,0.5) !important; /* La sombra se encoge */
+    transform: translateY(2px); /* El botón baja */
+    box-shadow: 0 4px 0px rgba(0,0,0,0.5) !important; /* La sombra se encoge */
     
 }
 
@@ -230,29 +301,6 @@ input, textarea {
     width: 100%;
     padding: 10px;
     
-}
-
-
-.btn-mapa {
-    background-color: #F59E0B;
-    box-shadow: 0 6px 0px #9e7711;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 15px 25px;
-    font-size: 16px;
-    font-weight: bold;
-    color: white;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
-    background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
-    width: 100%;
-    padding: 10px;
-    position: absolute;
-
 }
 
 .btn-login {
@@ -297,3 +345,156 @@ input, textarea {
     border-radius: 50%;
 
 }
+
+.btn-adminisPersonal { 
+    background-color: #73ff33; 
+    color: #333;
+    box-shadow: 0 5px 0 #4ea321;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20%;
+}
+
+
+
+
+
+
+
+                               /* pantalla de administrador */
+.admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr 1fr; /* Tres columnas */
+    gap: 20px;
+    padding: 20px;
+    background-color: #f4f7f6;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Estilo de Tarjetas (Cards) */
+.card-mantenimiento, .card-informes, .card-reportes-ciudadanos {
+    border-radius: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.solicitados { background-color: #e2ede3; }
+.asignados { background-color: #7df9a3; }
+.card-informes { background-color: #d9d9d9; }
+.card-reportes-ciudadanos { background-color: #6c757d; color: white; }
+
+/* Botones 3D Mejorados */
+
+
+.btn-mantenimientoBoton { 
+    background-color: #2d7a4d; 
+    box-shadow: 0 5px 0 #1a4a2e;
+}
+
+
+.btn-3d:active {
+    transform: translateY(-2px);
+    box-shadow: 0 1px 0 #1a4a2e;
+}
+
+/* Tablas y Contadores */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.status-counter {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+.badge {
+    display: block;
+    background: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    color: #333;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.ubicontainer {
+    column-count: 3;
+    column-gap: 40px;
+}
+/* Mapa e Informes */
+
+
+
+.info-box {
+    background: #2d7a4d;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid #fff;
+}
+
+.list-scroll-buttons {
+    max-height: 200px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column ;
+    gap : 20px;
+}
+
+.btn-mantenimientoBoton {
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    position: center;
+    background: #2d7a4d;
+    color: white;
+}
+
+.btn-reporteCiudadano {
+    padding: 15px;
+    font-size: 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    position: center;
+    background: #2d7a4d;
+    color: white;
+}
+
+/* Cuando haces clic (el efecto de pinchar) */
+.btn-2D:active {
+      background-color: #007BFF;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease; /* Hace que los cambios sean suaves */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Cuando pasas el mouse por encima */
+.mi-boton:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px); /* El botón sube un poquito */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Cuando haces clic (el efecto de pinchar) */
+.mi-boton:active {
+  transform: translateY(0); /* Vuelve a su posición original */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #004085;
+}
+
