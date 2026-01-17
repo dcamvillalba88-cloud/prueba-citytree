@@ -16,11 +16,11 @@
                 <p>Plataforma de gestión de arbolado urbano</p>
             </div>
         </div>
-        <div><button class="btn-3d home-icon"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
+        <div><button class="btn-3d home-icon" onclick="abrirModal('¿Deseas volver al inicio?', () => { window.location.href = 'administrador.html'; })"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
 </header>
 
 <main class="container-admMantenimientos">
-    <aside class="col-mantleft">
+    <aside class="col-mantleft">                                                                                                                                                                             
         <div class="card glass"> 
             <h3>Asignacion de mantenimiento</h3>
             
@@ -65,7 +65,7 @@
                             <div class="form-left">
                                 <div class="info-block">
                                     <label>Numero de registro unico</label>
-                                    <p class="reg-number">34546565</p>
+                                    <p class="reg-number" id="numeroRegistro">34546565</p>
                                 </div>
                             </div>
                         </div>
@@ -108,8 +108,26 @@
                 <button class="btn-finalizado">Finalizado</button>
             </div>
 </footer>
-        
-    
+    <!-- MODAL -->
+    <div id="modalConfirm" class="modal hidden">
+        <div class="modal-box">
+            <p id="modalMensaje"></p>
+            <div class="modal-actions">
+                <button id="btnSi" class="btn-modal-si">Sí</button>
+                <button id="btnNo" onclick="cerrarModal()" class="btn-modal-no">No</button>
+            </div>
+        </div>
+    </div>
+    <script src="prueba.citytree.js"></script>
 
+    <script>
+        const params = new URLSearchParams(window.location.search);
+        const idRecibido = params.get('id');
+        if (idRecibido) {
+            document.getElementById('numero de registro unico').innerText = idRecibido;
+        } else {
+            document.getElementById('numero de registro unico').innerText = 'ID no proporcionado';
+        }
+    </script>
 </body>
 </html>

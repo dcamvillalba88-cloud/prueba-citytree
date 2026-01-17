@@ -362,13 +362,8 @@ input, textarea {
     transition: all 0.1s; /* Para que el efecto de pinchar sea fluido */
     background-image: linear-gradient(to bottom, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 100%); /* El brillo superior */
 }
-}
 
-
-
-
-
-                               /* pantalla de administrador */
+/* pantalla de administrador */
 .admin-grid {
     display: grid;
     grid-template-columns: 1fr 1.2fr 1fr; /* Tres columnas */
@@ -594,6 +589,11 @@ input, textarea {
     padding: 10px;
 }
 
+footer {
+    margin-top: 20px;
+    padding: 20px;
+}
+
 .footer-actions {
     text-align: center;
     margin-top: 30px;
@@ -602,11 +602,23 @@ input, textarea {
 .btn-finalizado {
     background-color: #a2ff5e;
     border: 2px solid #555;
-    padding: 10px 60px;
+    padding: 12px 60px;
     border-radius: 20px;
     font-weight: bold;
     font-size: 1.1rem;
     cursor: pointer;
+    color: #333;
+    transition: all 0.2s;
+    box-shadow: 0 4px 0px #7acc3e;
+}
+
+.btn-finalizado:hover {
+    background-color: #8fe54a;
+}
+
+.btn-finalizado:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0px #7acc3e;
 }
 
 .admin-grid {
@@ -618,22 +630,78 @@ input, textarea {
     display: grid;
     column-count: 2;
     grid-template-columns: 30% 70%;
-    min-height: 100vh;
     column-gap: 40px;
-
+    margin-bottom: 20px;
 }
 
 .col-mantright {
     display: grid;
     row-gap: 40px;
-    grid-template-rows: 1fr 2fr;
-    height: 100vh;
+    grid-template-rows: auto auto;
     gap: 10px;
 }
 
 .adm-container {
     columns: 3;
     gap: 30px;
-
-
 }
+
+                                            /*modal*/
+
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4000;
+}
+
+.modal-box {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+
+.btn-modal-si, .btn-modal-no {
+    padding: 10px 25px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+}
+
+.btn-modal-si {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 20px;
+}
+
+.btn-modal-si:hover {
+    background-color: #45a049;
+}
+
+.btn-modal-no {
+    background-color: #f44336;
+    color: white;
+    border-radius: 20px;
+}
+
+.btn-modal-no:hover {
+    background-color: #da190b;
+}
+
+.hidden {
+    display: none;
+}                
