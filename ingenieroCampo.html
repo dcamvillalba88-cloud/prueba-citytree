@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Tree - Gestión de Arbolado</title>
+    <link rel="stylesheet" href="css/prueba-citytree.css">
+</head>
+<body>
+    
+    <header class="main-header">
+        <div class="logo-section">
+            <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
+            <div>
+                <h1>City Tree</h1>
+                <p>Plataforma de gestión de arbolado urbano</p>
+            </div>
+        </div>
+        <div><button class="btn-3d home-icon"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
+    </header>
+
+    <body>
+        
+        <main class="container-campo">
+            <h2>Datos nuevo espécimen</h2>
+
+            <section class="card">
+
+                <div class="row">
+                    <div>
+                    <p><strong>Número de registro único</strong></p>
+                    <input 
+                        type="text" 
+                        id="registroUnico" 
+                        placeholder="Número de registro único" 
+                        readonly
+                        >
+                    </div>
+
+                    <div>
+                        <label>Fecha ingreso</label>
+                        <input type="date" id="fechaIngreso">
+                    </div>
+                </div>
+
+            <div class="grid">
+                    <div>
+                    <label>Especie</label>
+                    <select id="especie">
+                        <option value="Eucalipto">Eucalipto / Nombre Científico: Eucalyptus cinerea</option>
+                        <option value="Sangregado">Sangregado / Nombre científico: Croton magdalenensis</option>
+                        <option value="Caucho sabanero">Caucho sabanero /Nombre científico: Ficus andicola</option>
+                    </select>
+                    </div>
+
+                <div>
+                    <label>Emplazamiento</label>
+                    <select id="emplazamiento">
+                        <option value="vìa">vía</option>
+                        <option value="parque">parque</option>
+                        <option value="residencial">residencial</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>circunferecia</label>
+                    <input 
+                    type="number"
+                    id="circunferencia" 
+                    name="circunferencia"
+                    step="0.01"
+                    min="0"
+                    placeholder="cm">
+                    <span>cm</span>
+                </div>
+
+                <div>
+                    <label>Estado</label>
+                    <select id="estado">
+                        <option value="vivo">vivo</option>
+                        <option value="muerto">muerto</option>
+                        <option value="talado">talado</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label>Altura (m)</label>
+                    <input 
+                    type="number"
+                    id="altura" 
+                    name="altura"
+                    step="0.01"
+                    min="0"
+                    placeholder="cm">
+                </div>
+
+                <div>
+                    <h3>ubicacion</h3>
+                    <label>latitud</label>
+                    <input  
+                    type="number"
+                    id="latitud" 
+                    name="latitud"
+                    step="any"
+                    class="input-gps"
+                    min="0"
+                    placeholder="0.000000">
+
+                    <label>longitud</label>
+                    <input 
+                    type="number"   
+                    id="longitud" 
+                    name="longitud"     
+                    step="any"
+                    class="input-gps"   
+                    min="0"
+                    placeholder="0.000000">
+                </div>
+            </div>
+            </section>
+
+    <!-- CONTENEDOR 2: MANTENIMIENTO -->
+            <section class="card">
+
+                <div class="checkbox">
+                    <input type="checkbox" id="mantenimiento">
+                    <label for="mantenimiento">Realizar mantenimiento</label>
+                </div>
+
+                <textarea id="comentarios"placeholder="Comentarios">comentarios</textarea>
+
+                <button class=" submit btn-primary btn-3d" id="submit">Submit</button>
+
+            </section>
+
+        </main>
+
+        <!-- MODAL -->
+        <div id="modal" class="modal hidden">
+            <div class="modal-box">
+                <h3 id="modal-title"></h3>
+                <p id="modal-message"></p>
+                <button id="btn-modal-aceptar" class="btn-modal-si" onclick="cerrarModal()">Aceptar</button>
+            </div>
+        </div>
+
+        <script src="prueba.citytree.js"></script>
+    </body>
+
+    <footer>
+            <div class="footer-actions">
+                <button class="btn-finalizado">Finalizado</button>
+            </div>
+    </footer>
+
+</html>
