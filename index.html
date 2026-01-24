@@ -50,9 +50,10 @@
         <section class="right-panel">
             <div class="card glass login-card">
                 <h3>Login empleados</h3>
-                <input type="text" placeholder="Username">
-                <input type="password" placeholder="Password">
-                <button class="btn-3d btn-login" onclick="window.location.href='administrador.html'">Log In</button>
+                <input type="text" id="usuario" placeholder="Username"><br>
+                <input type="password" id="password" placeholder="Password"><br>
+                <button class="btn-3d btn-login" onclick="login()">Log In</button>
+                <p id="mensaje"></p>
             </div>
 
             <div class="card glass citizen-report">
@@ -88,6 +89,8 @@
             </div>
         </div>
     </section>
+    
     <script src="prueba.citytree.js"></script>
+    <script>sessionStorage.clear();</script>
 </body>
 </html>

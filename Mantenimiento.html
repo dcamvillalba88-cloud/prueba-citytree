@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Tree - Gestión de Arbolado</title>
     <link rel="stylesheet" href="css/prueba-citytree.css">
+    <script src="prueba.citytree.js"></script>
+    <script>
+        // Proteger esta página: solo personal de mantenimiento
+        if (!protegerPagina(["mantenimiento"])) {
+            // La función protegerPagina ya redirige si no tiene acceso
+        }
+    </script>
 </head>
 <body>
     
@@ -16,7 +23,7 @@
                 <p>Plataforma de gestión de arbolado urbano</p>
             </div>
         </div>
-        <div><button class="btn-3d home-icon"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
+        <div><button class="btn-3d home-icon" onclick="cerrarSesion()"><img src="assets/icons/icono inicio.png" alt="Cerrar Sesión"></button></div>
     </header>
 
 <main class="container-admMantenimientos">

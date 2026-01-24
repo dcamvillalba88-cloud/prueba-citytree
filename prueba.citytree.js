@@ -138,3 +138,94 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 });
+
+                       // login usuarios por roles
+
+// USUARIOS SIMULADOS
+// ============= SISTEMA DE LOGIN Y CONTROL DE ACCESO =============
+
+const usuarios = [
+  // ADMINISTRADORES
+  { user: "admin1", pass: "admin123", rol: "admin" },
+  { user: "admin2", pass: "admin456", rol: "admin" },
+
+  // MANTENIMIENTO
+  { user: "mant1", pass: "mant123", rol: "mantenimiento" },
+  { user: "mant2", pass: "mant456", rol: "mantenimiento" },
+
+  // INGENIERO DE CAMPO
+  { user: "campo1", pass: "campo123", rol: "campo" },
+  { user: "campo2", pass: "campo456", rol: "campo" }
+];
+
+function login() {
+  const usuario = document.getElementById("usuario")?.value || "";
+  const password = document.getElementById("password")?.value || "";
+  const mensaje = document.getElementById("mensaje");
+
+  if (!mensaje) return;
+
+  // Reset visual
+  mensaje.textContent = "";
+  mensaje.style.color = "red";
+
+  // Validación de campos vacíos
+  if (usuario === "" || password === "") {
+    mensaje.textContent = "Debe ingresar usuario y contraseña";
+    return;
+  }
+
+  // Validación de credenciales
+  const encontrado = usuarios.find(
+    u => u.user === usuario && u.pass === password
+  );
+
+  if (!encontrado) {
+    mensaje.textContent = "Usuario o contraseña incorrectos";
+    return;
+  }
+
+  // Login correcto
+  sessionStorage.setItem("rol", encontrado.rol);
+  sessionStorage.setItem("usuario", encontrado.user);
+
+  mensaje.style.color = "green";
+  mensaje.textContent = "Acceso correcto, redirigiendo...";
+
+  setTimeout(() => {
+    if (encontrado.rol === "admin") {
+      location.href = "administrador.html";
+    } else if (encontrado.rol === "mantenimiento") {
+      location.href = "Mantenimiento.html";
+    } else if (encontrado.rol === "campo") {
+      location.href = "ingenieroCampo.html";
+    }
+  }, 800);
+}
+
+// Protección de páginas por rol
+function protegerPagina(rolesPermitidos) {
+  const rolActual = sessionStorage.getItem("rol");
+  const usuario = sessionStorage.getItem("usuario");
+
+  if (!rolActual || !usuario) {
+    alert("❌ ACCESO DENEGADO\n\nDebe iniciar sesión primero.");
+    window.location.href = "index.html";
+    return false;
+  }
+
+  if (!rolesPermitidos.includes(rolActual)) {
+    alert(`❌ ACCESO DENEGADO\n\nUsuario: ${usuario}\nRol: ${rolActual}\n\nNo tiene permisos para acceder a esta página.`);
+    window.location.href = "index.html";
+    return false;
+  }
+
+  return true;
+}
+
+// Cerrar sesión
+function cerrarSesion() {
+  sessionStorage.clear();
+  alert("Sesión cerrada exitosamente");
+  window.location.href = "index.html";
+}

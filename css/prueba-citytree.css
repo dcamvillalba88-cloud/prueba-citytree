@@ -837,6 +837,8 @@ iframe {
     max-width: 1100px;
     margin: auto;
     padding: 20px;
+    background-color: #d7d1f1;
+    border-radius: 10px;
 }
 
 h2 {
@@ -845,7 +847,12 @@ h2 {
 }
 
 .card {
-    background: #e8f2ed;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+   -webkit-backdrop-filter: blur(10px); /* Safari */
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
     padding: 20px;
     border-radius: 10px;
     margin-bottom: 20px;

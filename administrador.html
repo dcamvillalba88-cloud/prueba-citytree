@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <title>City Tree - Administrador</title>
     <link rel="stylesheet" href="css/prueba-citytree.css">
+    <script src="prueba.citytree.js"></script>
+    <script>
+        // Proteger esta página: solo administradores
+        if (!protegerPagina(["admin"])) {
+            // La función protegerPagina ya redirige si no tiene acceso
+        }
+    </script>
 </head>
 <body>
     
@@ -15,7 +22,7 @@
                 <p>Plataforma de gestión de arbolado urbano</p>
             </div>
         </div>
-        <div><button class="btn-3d home-icon" onclick="window.location.href='index.html'"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
+        <div><button class="btn-3d home-icon" onclick="cerrarSesion()"><img src="assets/icons/icono inicio.png" alt="Cerrar Sesión"></button></div>
     </header>
 
 <main class="admin-grid">
@@ -115,6 +122,5 @@
     </aside>
 </main>
 
-<script src="prueba.citytree.js"></script>
 </body>
 </html>
