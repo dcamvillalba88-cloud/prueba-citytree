@@ -4,13 +4,8 @@
     <meta charset="UTF-8">
     <title>City Tree - Administrador</title>
     <link rel="stylesheet" href="css/prueba-citytree.css">
-    <script src="prueba.citytree.js"></script>
-    <script>
-        // Proteger esta página: solo administradores
-        if (!protegerPagina(["admin"])) {
-            // La función protegerPagina ya redirige si no tiene acceso
-        }
-    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>body { visibility: hidden; } </style>
 </head>
 <body>
     
@@ -87,9 +82,7 @@
                 <input type="text" placeholder="XXXXXXXX">
             </div>     
     </div>        
-            <div class="map-placeholder">
-                    <a href="ubicacion-especies.html" class="btn-3d btn-mapa">Mapa de arboles GPS</a>
-            </div>        
+                    <div id="map-ubicamap" class="map-ubicamap"></div>        
         </aside>
 
     <aside class="column col-right">
@@ -121,6 +114,13 @@
         </section>
     </aside>
 </main>
-
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="prueba.citytree.js"></script>
+    <script>
+        // Proteger esta página: solo administradores
+        if (!protegerPagina(["admin"])) {
+            document.body.style.visibility = "visible";
+        }
+    </script>
 </body>
 </html>

@@ -5,13 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Tree - Gestión de Arbolado</title>
     <link rel="stylesheet" href="css/prueba-citytree.css">
-    <script src="prueba.citytree.js"></script>
-    <script>
-        // Proteger esta página: solo personal de mantenimiento
-        if (!protegerPagina(["mantenimiento"])) {
-            // La función protegerPagina ya redirige si no tiene acceso
-        }
-    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>body{visibility:hidden}</style>
 </head>
 <body>
     
@@ -79,7 +74,7 @@
                 </div>            
                     <div class="col3-adm-container">
                         <div class="observations">
-                        <label>Obserbaciones</label>
+                        <label>Observaciones</label>
                         <textarea rows="4">se evidencia que el crecimiento puede afectar una line electrica</textarea>
                     </div>  
             </div>    
@@ -87,9 +82,7 @@
             
         <div class="fila-infoadm"> 
             <div class="card glass">
-                <div class="map-ubicamap">
-                    <a onclick href="https://www.google.com/maps">Simulacion pines GPS</a>
-                </div>
+                <div id="map-ubicamap" class="map-ubicamap"></div>
             </div>
         </div>
     </aside>
@@ -111,15 +104,22 @@
             </div>
         </div>
     </div>
-    <script src="prueba.citytree.js"></script>
 
     <script>
         const params = new URLSearchParams(window.location.search);
         const idRecibido = params.get('id');
         if (idRecibido) {
-            document.getElementById('numero de registro unico').innerText = idRecibido;
+            document.getElementById('numeroRegistro').innerText = idRecibido;
         } else {
-            document.getElementById('numero de registro unico').innerText = 'ID no proporcionado';
+            document.getElementById('numeroRegistro').innerText = 'ID no proporcionado';
+        }
+    </script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="prueba.citytree.js"></script>
+    <script>
+        // Proteger esta página: solo personal de mantenimiento
+        if (protegerPagina(["mantenimiento"])) {
+            document.body.style.visibility = "visible";
         }
     </script>
 </body>
