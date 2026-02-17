@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>City Tree - Administrador</title>
-    <link rel="stylesheet" href="css/prueba-citytree.css">
+    <link rel="stylesheet" href="../css/prueba-citytree.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
     <style>body { visibility: hidden; } </style>
 </head>
@@ -11,13 +11,13 @@
     
     <header class="main-header">
         <div class="logo-section">
-            <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
+            <div class="logo-placeholder"><img src="../assets/icons/logo city free.png" alt="Logo City Tree"></div>
             <div>
                 <h1>City Tree</h1>
                 <p>Plataforma de gestión de arbolado urbano</p>
             </div>
         </div>
-        <div><button class="btn-3d home-icon" onclick="cerrarSesion()"><img src="assets/icons/icono inicio.png" alt="Cerrar Sesión"></button></div>
+        <div><button class="btn-3d home-icon" onclick="cerrarSesion()"><img src="../assets/icons/icono inicio.png" alt="Cerrar Sesión"></button></div>
     </header>
 
 <main class="admin-grid">
@@ -56,24 +56,45 @@
 
     <aside class="column col-center">
     <div class="card glass">    
-        <h2>Administrador</h2>
+        <h2>ADMINISTRADOR</h2>
         
-        <div class="user-management">
+        <div class="user-management list-scroll-buttons">
             <h4>Gestion de Usuarios</h4>
             <table class="user-table">
-                <thead>
+            <table border="1">
+                <thhead>
                     <tr>
-                        <th>ID</th><th>Nombre</th><th>Rol</th><th>estado</th>
+                        <th>ID</th><th>Nombre</th><th>Apellido</th><th>Rol</th><th>estado</th>
                     </tr>
-                </thead>
-                <tbody>
-                    <tr><td>1</td><td>Jose Torre</td><td>Mantenimiento</td><td>Activo ▾</td></tr>
-                    <tr><td>2</td><td>Maria Guzman</td><td>Ingeniero</td><td>Activo ▾</td></tr>
-                    </tbody>
+                </thhead>
+                <tbody id="tablaUsuarios"></tbody>
             </table>
-            <button class="btn-3d btn-adminisPersonal">Administrador personal</button>
+            <button  onclick= "mostrarModal('Nuevo usuario')" class ="btn-3d btn-adminisPersonal"> Nuevo Usuario </button>
+
         </div>
     </div>
+    
+    <div id="modalUsuario" class="modal hidden">
+        <div class="modalUsu-contenido">
+            <h3 id="tituloModal">Nuevo usuario</h3>
+
+            <label>Nombre</label><input type="text" id="nombre">
+            <label>Apellido</label><input type="text" id="apellido">
+            <label>Correo</label><input type="email" id="correo">
+            <label>Rol</label><select id="rol">
+                <option value="Ingeniero de campo">Ingeniero de campo</option>
+                <option value="Administrador">Administrador</option>
+                <option value="Mantenimiento">Mantenimiento</option>
+                </select>
+
+                <div class="acciones">
+                    <button onclick="guardarUsuario()"  class ="btn-3d btn-adminisPersonal">Guardar</button>
+                    <button onclick="cerrarModal()"  class ="btn-3d btn-adminisPersonal">Cancelar</button>
+                </div>
+        </div>
+    </div>
+
+
     <div class="card glass">
         <div class="consulta-admi">
             <h4>Consulta de especimen</h4>
@@ -115,10 +136,10 @@
     </aside>
 </main>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="prueba.citytree.js"></script>
+    <script src="../prueba.citytree.js"></script>
     <script>
         // Proteger esta página: solo administradores
-        if (!protegerPagina(["admin"])) {
+        if (protegerPagina(["admin"])) {
             document.body.style.visibility = "visible";
         }
     </script>

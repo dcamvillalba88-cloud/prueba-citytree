@@ -4,61 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>City Tree - Gestión de Arbolado</title>
-    <link rel="stylesheet" href="css/prueba-citytree.css">
+    <link rel="stylesheet" href="../css/prueba-citytree.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <style>body{visibility:hidden}</style>
 </head>
 <body>
     
-<header class="main-header">
+    <header class="main-header">
         <div class="logo-section">
-            <div class="logo-placeholder"><img src="assets\icons\logo city free.png" alt="Logo City Tree"></div>
+            <div class="logo-placeholder"><img src="../assets/icons/logo city free.png" alt="Logo City Tree"></div>
             <div>
                 <h1>City Tree</h1>
                 <p>Plataforma de gestión de arbolado urbano</p>
             </div>
         </div>
-        <div><button class="btn-3d home-icon" onclick="abrirModal('¿Deseas volver al inicio?', () => { window.location.href = 'administrador.html'; })"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
-</header>
+        <div><button class="btn-3d home-icon" onclick="cerrarSesion()"><img src="../assets/icons/icono inicio.png" alt="Cerrar Sesión"></button></div>
+    </header>
 
 <main class="container-admMantenimientos">
     <aside class="col-mantleft">                                                                                                                                                                             
         <div class="card glass"> 
-            <h3>Asignacion de mantenimiento</h3>
-            
-            <div class="input-group">
-                <label>Numero de mantenimiento</label>
-                <input type="text" placeholder="numero consecutivo">
-            </div>
+            <h3>Mantenimientos por realizar</h3>
 
-            <div class="worker-assignment">
-                <label>Personal de mantenimiento</label>
-                <div class="worker-header">
-                    <span>Trabajador</span>
-                    <span>Asignados</span>
-                </div>
-                <div class="worker-list">
-                    <div class="worker-row">
-                        <button class="btn-3d btn-perMantenimiento">Jose Torre</button>
-                        <span class="count">7</span>
-                    </div>
-                    <div class="worker-row">
-                        <button class="btn-3d btn-perMantenimiento">Carlos Rojas</button>
-                        <span class="count">9</span>
-                    </div>
-                    <div class="worker-row">
-                        <button class="btn-3d btn-perMantenimiento">Jairo Mora</button>
-                        <span class="count">4</span>
-                    </div>
-                </div>
-            </div>
-            <p class="small-text">Seleccionar trabajador</p>
-            <button class="btn-primary">ASIGNAR</button>
-        </div>   
+            <div class="list-scroll-buttons">
+                <button class="pill btn-3d btn-mantenimientoBoton"id="mantenimientoBoton.."onclick="verDetalle(this.i)">34546565</button>
+                <button class="pill btn-3d btn-mantenimientoBoton"id="mantenimientoBoton.."onclick="verDetalle(this.i)">09647836</button>
+                <button class="pill btn-3d btn-mantenimientoBoton"id="mantenimientoBoton.."onclick="verDetalle(this.i)">47698654</button>
+                <button class="pill btn-3d btn-mantenimientoBoton"id="mantenimientoBoton.."onclick="verDetalle(this.i)">10292873</button>
+                <button class="pill btn-3d btn-mantenimientoBoton"id="mantenimientoBoton.."onclick="verDetalle(this.i)">10092742</button>
+                <button class="pill btn-3d btn-mantenimientoBoton"id="mantenimientoBoton.."onclick="verDetalle(this.i)">09775323</button>
     </aside>
+
 
     <aside class="col-mantright">
         <div class="fila-supadm">  
             <div class="card glass">
-                <h2>Administración de mantenimientos</h2>  
+                <h2>Mantenimientos por especimenes</h2>  
                 <div class="adm-container">
                     <div class="col1-adm-container">
                         <div class="main-grid">
@@ -76,18 +57,24 @@
                     </div>
                     <div class="col2-adm-container">
                         <div class="input-group-main">
-                            <label>Ingeniero de campo</label>
-                            <input type="text" value="Maria Guzman">
+                            <label>fecha de solicitud</label>
+                            <input type="date" value="Maria Guzman">
                         </div>
                         <div class="input-group-main">
-                            <label>Fecha de solicitud</label>
-                            <input type="text" placeholder="xx/xx/xxxx">
+                            <label for="fotoEspecimen" class="label-camara btn-3d">Foto de resultado</label>
+                            <input 
+                                type="file" 
+                                id="fotoEspecimen"
+                                accept="image/*"
+                                capture="environment"
+                                hidden
+                            >
                         </div>
                     </div>
                 </div>            
                     <div class="col3-adm-container">
                         <div class="observations">
-                        <label>Obserbaciones</label>
+                        <label>Observaciones</label>
                         <textarea rows="4">se evidencia que el crecimiento puede afectar una line electrica</textarea>
                     </div>  
             </div>    
@@ -95,9 +82,7 @@
             
         <div class="fila-infoadm"> 
             <div class="card glass">
-                <div class="map-ubicamap">
-                    <a onclick href="https://www.google.com/maps">Simulacion pines GPS</a>
-                </div>
+                <div id="map-ubicamap" class="map-ubicamap"></div>
             </div>
         </div>
     </aside>
@@ -108,7 +93,8 @@
                 <button class="btn-finalizado">Finalizado</button>
             </div>
 </footer>
-    <!-- MODAL -->
+
+<!-- MODAL -->
     <div id="modalConfirm" class="modal hidden">
         <div class="modal-box">
             <p id="modalMensaje"></p>
@@ -118,17 +104,23 @@
             </div>
         </div>
     </div>
-    <script src="prueba.citytree.js"></script>
 
     <script>
         const params = new URLSearchParams(window.location.search);
         const idRecibido = params.get('id');
         if (idRecibido) {
-            document.getElementById('numero de registro unico').innerText = idRecibido;
+            document.getElementById('numeroRegistro').innerText = idRecibido;
         } else {
-            document.getElementById('numero de registro unico').innerText = 'ID no proporcionado';
+            document.getElementById('numeroRegistro').innerText = 'ID no proporcionado';
         }
     </script>
-    
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="../prueba.citytree.js"></script>
+    <script>
+        // Proteger esta página: solo personal de mantenimiento
+        if (protegerPagina(["mantenimiento"])) {
+            document.body.style.visibility = "visible";
+        }
+    </script>
 </body>
 </html>

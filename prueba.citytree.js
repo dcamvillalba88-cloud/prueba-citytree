@@ -326,3 +326,68 @@ arbolesPin.forEach((arbol) => {
     alert("Árbol no encontrado");
   }
 } */
+
+  // usuarios simulados y probablemente futuros+
+
+  let usuariosNuevo = [
+    { id: 1, nombre: "Juana", apellido: "Gomez", rol: "administrador", correo: "juana_gomez01@gmail.com", estado: "activo"},
+    { id: 2, nombre: "Camilo", apellido: "Malaver", rol: "mantenimiento", correo: "camilo_malaver01@gmail.com", estado: "activo"},
+    { id: 3, nombre: "Sofia", apellido: "Lopez", rol: "ingeniero de campo", correo: "sofia_lopez01@gmail.com", estado: "activo"},
+    { id: 4, nombre: "Andres", apellido: "Perez", rol: "ingeniero de campo", correo: "andres_perez01@gmail.com", estado: "activo"},
+    { id: 5, nombre: "Maria", apellido: "Rodriguez", rol: "mantenimiento", correo: "maria_rodriguez01@gmail.com", estado: "activo"},
+    { id: 6, nombre: "Carlos", apellido: "Garcia", rol: "mantenimiento", correo: "carlos_garcia01@gmail.com", estado: "activo"},
+  ];
+
+  function pintarTabla() {
+    const tbody = document.getElementById("tablaUsuarios");
+    tbody.innerHTML = "";
+
+    usuariosNuevo.forEach(usuario => {
+      tbody.innerHTML +=
+        `<tr>
+          <td>${usuario.id}</td>
+          <td>${usuario.nombre}</td>
+          <td>${usuario.apellido}</td>
+          <td>${usuario.rol}</td>
+          <td>${usuario.estado}</td>
+          <td>
+        <button 
+        onclick="abrirModalEditar(${usuario.id})">Editar</button>
+        onclick="cambiarEstado(${usuario.id})"> ${usuario.estado ==="ACTIVO" ? "Inactivar" : "Activar"}</button>
+          </td>
+        </tr>`;
+    });
+  }
+  pintarTabla();
+
+  // nuevo usuario
+function abrirModalCrear() { usuarioEditando = null; 
+  mostrarModal("Nuevo Usuario");
+}
+
+//editar usuario
+let usuarioEditando = null;
+function abrirModalEditar(id) {
+  usuarioEditando = usuarios.find(u=> u.id === id);
+  mostrarModal("Editar usuario", usuarioEditando);
+}
+ //activar / inactivar usuario
+
+function cambiarEstado(id) {
+  const usuario = usuarios.find(u => u.id === id);
+
+  if (confirm(`¿Desea ${usuario.estado === "activo" ? "inactivar" : "activar"} al usuario ${usuario.nombre} ${usuario.apellido}?`)) {
+    usuario.estado = usuario.estado === "activo" ? "inactivo" : "activo";
+    pintarTabla();
+  } 
+}
+
+// Modal genérico para crear/editar usuario (simplificado)
+function mostrarModal(titulo) {
+  document.getElementById("tituloModal").innerText = titulo;
+  document.getElementById("modalUsuario").classList.remove("hidden");
+}
+
+function cerrarModal() {
+  document.getElementById("modalUsuario").classList.add("hidden");
+}
