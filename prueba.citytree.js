@@ -391,3 +391,45 @@ function mostrarModal(titulo) {
 function cerrarModal() {
   document.getElementById("modalUsuario").classList.add("hidden");
 }
+
+//guardar usuarios con validacion
+
+function guardarUsuario() {
+  const nombre = document.getElementById("nombre").value.trim();
+  const apellido = document.getElementById("apellido").value.trim();
+  const correo = document.getElementById("correo").value.trim();
+  const rol = document.getElementById("rol").value;
+
+  const errorEl = document.getElementById("errorFormulario");
+
+  // validacon basica
+  if (!nombre || !apellido || !correo) {
+    errorEl.innerText = "Faltan campos por diligenciar";
+    errorEl.style.display = "block";
+    return;   
+  }
+  if (!correo.includes("@")) {
+    errorEl.innerText = "Correo no es válido";
+    errorEl.style.display = "block";
+    return;   
+  }
+  //vaLIDACION FINAL, SI TODO ESTA BIEN SE GUARDA EL USUARIO
+  if (usuarioEditando) {
+    usuarioEditando.nombre = nombre;
+    usuarioEditando.apellido = apellido;
+    usuarioEditando.correo = correo;
+    usuarioEditando.rol = rol;
+  } else {
+    const nuevoUsuario = {
+      id: Date.now(),
+      nombre,
+      apellido,
+      correo,
+      rol,
+      estado: "activo",
+    };
+    usuarios.push(nuevoUsuario);
+  }
+  cerrarModal();
+  pintarTabla();
+}
