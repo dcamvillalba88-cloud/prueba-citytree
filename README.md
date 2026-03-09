@@ -1,45 +1,163 @@
-# CityTree – Plataforma Web (Mockup Funcional)
+CityTree – Plataforma Web para Gestión Arbórea Urbana
 
-## Descripción
-Este proyecto corresponde al desarrollo de una aplicación web
-orientada al diseño y desarrollo de servicios web para la gestión
-arbórea urbana.
+Descripción
 
-La aplicación presenta un mockup funcional de la pantalla de inicio,
-incluyendo panel de login, reporte ciudadano y visualización general
-del sistema. Adiconala esto por medio de login de usuario con contraseña, se habilitan credenciales y se diecciona a diferentes interaces dependiendo el rol del usuario. A continuacion se evidencia el rol y los usuarios y claves para evidenciar las pantallas y funcionamiento del login simulado:
+CityTree es una plataforma web orientada a la gestión del arbolado urbano, diseñada como parte del desarrollo de servicios web. El sistema busca facilitar el registro, monitoreo y administración de árboles en entornos urbanos, permitiendo la participación tanto de ciudadanos como de personal técnico encargado del mantenimiento y supervisión.
 
-- Administrador= user: admin1 password: admin123 
-- Ingeniero de campo= user:campo1 passord: campo123
-- per de mantenimiento= user: mant1 password: mant123
+El proyecto se compone de dos componentes principales:
 
+- Frontend (Mockup funcional): interfaz de usuario desarrollada para representar la experiencia del sistema.
+- Backend (CityTree API): servicio web REST encargado de gestionar usuarios y registros de árboles mediante conexión a base de datos.
 
-## Tecnologías utilizadas
+---
+
+Componentes del proyecto
+
+1. Frontend (Mockup funcional)
+
+El frontend presenta una simulación funcional del sistema con diferentes interfaces según el rol del usuario.
+
+Incluye:
+
+- Pantalla de inicio (dashboard)
+- Formulario de inicio de sesión
+- Panel de reporte ciudadano
+- Interfaces diferenciadas por rol de usuario
+- Diseño responsive básico
+- Interacción mediante JavaScript
+
+El login funciona como simulación para mostrar diferentes vistas según el rol.
+
+Credenciales de prueba (login simulado)
+
+Rol| Usuario| Contraseña
+Administrador| admin1| admin123
+Ingeniero de campo| campo1| campo123
+Personal de mantenimiento| mant1| mant123
+
+Dependiendo del rol autenticado, el usuario es redirigido a diferentes interfaces dentro del sistema.
+
+---
+
+2. Backend – CityTree API
+
+El backend corresponde a una API REST desarrollada para gestionar la información del sistema.
+
+Actualmente incluye:
+
+Gestión de usuarios
+
+- Creación de usuarios
+- Consulta de usuarios
+- Actualización de usuarios
+- Eliminación lógica (soft delete)
+
+Las contraseñas se almacenan de forma segura mediante hash utilizando bcrypt.
+
+Gestión de árboles
+
+- Registro de árboles urbanos
+- Consulta de árboles registrados
+- Actualización de información del árbol
+
+Cada árbol queda asociado al ingeniero que realiza el registro, mediante una relación con la tabla de usuarios.
+
+---
+
+Tecnologías utilizadas
+
+Frontend
+
 - HTML5
 - CSS3
 - JavaScript (Vanilla)
 
-## Funcionalidades
-- Interfaz de inicio (dashboard)
-- Formulario de inicio de sesión (simulado)
-- Reporte ciudadano (formulario)
-- Diseño responsive básico
-- Interacción mediante JavaScript
+Backend
 
-## Alcance
-El proyecto no incluye conexión a base de datos ni backend.
-Las funcionalidades corresponden a una simulación funcional
-orientada a la experiencia de usuario.
+- Node.js
+- Express.js
+- PostgreSQL
+- bcrypt (hash seguro de contraseñas)
 
-## Uso de Inteligencia Artificial
-Durante el desarrollo se utilizó Inteligencia Artificial como
-herramienta de apoyo para:
+Herramientas de desarrollo
+
+- Visual Studio Code
+- Postman (pruebas de API)
+- pgAdmin (gestión de base de datos)
+- Terminal Bash
+
+---
+
+Arquitectura general del backend
+
+citytree.api
+│
+├── controllers
+│   ├── usuarios.controller.js
+│   └── arboles.controller.js
+│
+├── routes
+│   ├── usuarios.routes.js
+│   └── arboles.routes.js
+│
+├── db
+│   └── connection.js
+│
+├── index.js
+├── package.json
+└── README.md
+
+Descripción de la estructura
+
+- controllers/
+  Contiene la lógica de negocio y operaciones CRUD.
+
+- routes/
+  Define los endpoints de la API.
+
+- db/
+  Configuración de la conexión con PostgreSQL.
+
+- index.js
+  Archivo principal que inicializa el servidor Express.
+
+---
+
+Endpoints principales
+
+Usuarios
+
+GET     /api/usuarios
+POST    /api/usuarios
+PUT     /api/usuarios/:id
+DELETE  /api/usuarios/:id
+
+---
+
+Estado actual del proyecto
+
+El sistema se encuentra en fase de desarrollo académico e incluye:
+
+- Mockup funcional del frontend
+- API REST básica en Node.js
+- Conexión a base de datos PostgreSQL
+- Gestión de usuarios con seguridad en contraseñas
+
+---
+
+Uso de Inteligencia Artificial
+
+Durante el desarrollo se utilizó Inteligencia Artificial como herramienta de apoyo para:
+
 - Resolución de dudas técnicas
-- Optimización de estructura CSS
-- Apoyo conceptual en diseño de interfaces
+- Apoyo en estructura de código
+- Optimización de consultas y arquitectura del backend
+- Asistencia conceptual en diseño del sistema
 
-La lógica y estructura final del proyecto fue implementada
-y adaptada por el autor.
+La implementación final, integración y pruebas fueron realizadas y adaptadas por el autor.
 
-## Autor
+---
+
+Autor
+
 Camilo Villalba

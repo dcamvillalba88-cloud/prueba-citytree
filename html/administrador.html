@@ -64,7 +64,12 @@
             <table border="1">
                 <thhead>
                     <tr>
-                        <th>ID</th><th>Nombre</th><th>Apellido</th><th>Rol</th><th>estado</th>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Apellido</th>
+                        <th>Correo</th>
+                        <th>Rol</th>
+                        <th>Estado</th>
                     </tr>
                 </thhead>
                 <tbody id="tablaUsuarios"></tbody>
@@ -78,8 +83,11 @@
         <div class="modalUsu-contenido">
             <h3 id="tituloModal">Nuevo usuario</h3>
 
+            <label>Numero de documento</label><input type="number" id="numeroDocumento">
             <label>Nombre</label><input type="text" id="nombre">
             <label>Apellido</label><input type="text" id="apellido">
+            <label>Direccion</label><input type="text" id="direccion">
+            <label>Telefono</label><input type="number" id="telefono">
             <label>Correo</label><input type="email" id="correo">
             <label>Rol</label><select id="rol">
                 <option value="Ingeniero de campo">Ingeniero de campo</option>
