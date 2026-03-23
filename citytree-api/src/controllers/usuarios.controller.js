@@ -3,7 +3,14 @@ const bcrypt = require("bcrypt");
 
 exports.crearUsuario = async (req, res) => {
     try {
-        const { numero_identificacion, nombres, apellidos, direccion, telefono, correo_electronico, rol, password } = req.body;
+        const { numero_identificacion, 
+                nombres, 
+                apellidos, 
+                direccion, 
+                telefono, 
+                correo_electronico, 
+                rol, 
+                password } = req.body;
 
         // Validar rol
         if (!['administrador','ingeniero','mantenimiento'].includes(rol)) {
