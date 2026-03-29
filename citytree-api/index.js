@@ -9,6 +9,9 @@ app.use("/api/usuarios", usuariosRoutes);
 const arbolesRoutes = require("./src/routes/arboles.routes");
 app.use("/api/arboles", arbolesRoutes);
 
+const mantenimientosRoutes = require("./src/routes/mantenimientos.routes");
+app.use("/api/mantenimientos", mantenimientosRoutes);
+
 const PORT = 3000;
 
 app.listen(PORT, () => {

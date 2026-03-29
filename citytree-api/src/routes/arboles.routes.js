@@ -6,6 +6,5 @@ router.post("/", arbolesController.crearArbol);
 router.get("/", arbolesController.obtenerArboles);
 router.get("/:id", arbolesController.obtenerArbolPorId);
 router.put("/:id", arbolesController.actualizarArbol);
-router.delete("/:id", arbolesController.eliminarArbol);    
 
 module.exports = router;
