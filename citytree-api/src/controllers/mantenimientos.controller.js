@@ -71,9 +71,15 @@ exports.asignarMantenimiento = async (req, res) => {
             return res.status(400).json({ error: "El campo 'asignado_a' es obligatorio" });
         }
 
+        /* validacion de rol */
+         const usuarioResult = await pool.query("SELECT * FROM usuarios WHERE id_usuario = $1 AND rol = 'mantenimiento'", [asignado_a]);
+        if (usuarioResult.rows.length === 0) {
+            return res.status(400).json({ error: "El usuario asignado no tiene el rol de mantenimiento" });
+        }   
+
         const result = await pool.query(
             `UPDATE mantenimientos
-            SET asignado_a = $1, estado = 'ASIGNADO',
+            SET asignado_a = $1, estado = 'asignado',
             fecha_asignacion = CURRENT_TIMESTAMP
             WHERE id_mantenimiento = $2
             RETURNING *`,
@@ -82,6 +88,7 @@ exports.asignarMantenimiento = async (req, res) => {
 
         res.json(result.rows[0]);
     } catch (error) {
+        console.log("ERROR", error);
         res.status(500).json({ error: "Error al asignar el mantenimiento" });
     };
 }
@@ -94,7 +101,7 @@ exports.finalizarMantenimiento = async (req, res) => {
         
         const result = await pool.query(
             `UPDATE mantenimientos
-            SET estado = 'FINALIZADO',
+            SET estado = 'finalizado',
             fecha_finalizacion = CURRENT_TIMESTAMP,
             observaciones_finales = $1,
             foto_url = $2
