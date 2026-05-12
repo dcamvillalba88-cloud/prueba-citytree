@@ -388,6 +388,12 @@ textarea {
   ); /* El brillo superior */
 }
 
+.btn-perMantenimiento--selected {
+  background-color: #2f855a;
+  color: #ffffff;
+  box-shadow: 0 0 0 2px #1f5c3d inset;
+}
+
 /* pantalla de administrador */
 .admin-grid {
   display: grid;

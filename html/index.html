@@ -42,7 +42,7 @@
             <div class="card glass">
                 <h2>Mapa de ubicación de especies</h2>
                 <div class="map-placeholder">
-                    <a href="ubicacion-especies.html" class="btn-3d btn-mapa">Mapa de arboles GPS</a>
+                    <a href="ubicacion-especies.html" class="btn-3d btn-mapa">Mapa de árboles GPS</a>
                 </div>
             </div>
         </section>
@@ -59,22 +59,30 @@
             <div class="card glass citizen-report">
                 <h3>Reporte ciudadano</h3>
                 <div class="form-group">
-                    <label>Nombre:</label> <input type="text">
+                    <label>Nombre:</label> <input type="text" id="reporteNombre">
                 </div>
                 <div class="form-group">
-                    <label>Email:</label> <input type="email">
+                    <label>Email:</label> <input type="email" id="reporteEmail">
                 </div>
                 <div class="form-group">
-                    <label>Ubicación:</label> <input type="text">
+                    <label>Ubicación:</label> <input type="text" id="reporteUbicacion">
                 </div>
                 <div class="form-group">
                     <label>Descripción del problema:</label>
-                    <textarea rows="2"></textarea>
+                    <textarea rows="2" id="reporteDescripcion"></textarea>
                 </div>
-                <button class="btn-3d btn-enviarReporte">Enviar reporte</button>
+                <button class="btn-3d btn-enviarReporte" id="btnEnviarReporte">Enviar reporte</button>
             </div>
         </section>
     </main>
+
+    <div id="modalReporte" class="modal hidden">
+        <div class="modal-box">
+            <h3>Reporte ciudadano</h3>
+            <p id="modalReporteMensaje"></p>
+            <button class="btn-modal-si" id="btnCerrarModalReporte">Aceptar</button>
+        </div>
+    </div>
 
     <section class="news-section">
         <h2 class="news-title">Noticias y Actualizaciones</h2>

@@ -27,7 +27,7 @@
             
             <div class="input-group">
                 <label>Numero de mantenimiento</label>
-                <input type="text" placeholder="numero consecutivo">
+                <input type="text" id="numeroConsecutivoMantenimiento" placeholder="numero consecutivo" readonly>
             </div>
 
             <div class="worker-assignment">
@@ -51,8 +51,6 @@
                     </div>
                 </div>
             </div>
-            <p class="small-text">Seleccionar trabajador</p>
-            <button class="btn-primary">ASIGNAR</button>
         </div>   
     </aside>
 
@@ -82,7 +80,7 @@
                         </div>
                         <div class="input-group-main">
                             <label>Fecha de solicitud</label>
-                            <input type="text" placeholder="xx/xx/xxxx">
+                            <input type="date" value="2024-06-01">
                         </div>
                     </div>
                 </div>            
@@ -105,7 +103,7 @@
 
 <footer>
             <div class="footer-actions">
-                <button class="btn-finalizado">Finalizado</button>
+                <button class="btn-finalizado" onclick="finalizarMantenimiento()">Finalizado</button>
             </div>
 </footer>
     <!-- MODAL -->

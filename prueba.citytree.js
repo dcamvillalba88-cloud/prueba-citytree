@@ -51,12 +51,150 @@ function verDetalle(idBoton) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+  let temporizadorModalEspecimen = null;
+
+  function mostrarModalEspecimen(titulo, mensaje, autoCerrarMs) {
+    const modal = document.getElementById("modal");
+    const tituloEl = document.getElementById("modal-title");
+    const mensajeEl = document.getElementById("modal-message");
+
+    if (!modal || !tituloEl || !mensajeEl) return;
+
+    if (temporizadorModalEspecimen) {
+      clearTimeout(temporizadorModalEspecimen);
+      temporizadorModalEspecimen = null;
+    }
+
+    tituloEl.textContent = titulo;
+    mensajeEl.textContent = mensaje;
+    modal.classList.remove("hidden");
+
+    if (autoCerrarMs && autoCerrarMs > 0) {
+      temporizadorModalEspecimen = setTimeout(() => {
+        modal.classList.add("hidden");
+        temporizadorModalEspecimen = null;
+      }, autoCerrarMs);
+    }
+  }
+
+  function configurarReporteCiudadano() {
+    const btnEnviarReporte = document.getElementById("btnEnviarReporte");
+    const modalReporte = document.getElementById("modalReporte");
+    const mensajeModalReporte = document.getElementById("modalReporteMensaje");
+    const btnCerrarModalReporte = document.getElementById("btnCerrarModalReporte");
+    const nombreInput = document.getElementById("reporteNombre");
+    const emailInput = document.getElementById("reporteEmail");
+    const ubicacionInput = document.getElementById("reporteUbicacion");
+    const descripcionInput = document.getElementById("reporteDescripcion");
+
+    if (
+      !btnEnviarReporte ||
+      !modalReporte ||
+      !mensajeModalReporte ||
+      !btnCerrarModalReporte ||
+      !nombreInput ||
+      !emailInput ||
+      !ubicacionInput ||
+      !descripcionInput
+    ) {
+      return;
+    }
+
+    let temporizadorCierreModal = null;
+
+    function cerrarModalReporte() {
+      modalReporte.classList.add("hidden");
+      if (temporizadorCierreModal) {
+        clearTimeout(temporizadorCierreModal);
+        temporizadorCierreModal = null;
+      }
+    }
+
+    function mostrarModalReporte(mensaje) {
+      mensajeModalReporte.textContent = mensaje;
+      modalReporte.classList.remove("hidden");
+      temporizadorCierreModal = setTimeout(cerrarModalReporte, 1800);
+    }
+
+    btnCerrarModalReporte.addEventListener("click", cerrarModalReporte);
+
+    btnEnviarReporte.addEventListener("click", function () {
+      const nombre = nombreInput.value.trim();
+      const email = emailInput.value.trim();
+      const ubicacion = ubicacionInput.value.trim();
+      const descripcion = descripcionInput.value.trim();
+
+      if (!nombre || !email || !ubicacion || !descripcion) {
+        mostrarModalReporte("Error: complete todos los campos del reporte ciudadano.");
+        return;
+      }
+
+      mostrarModalReporte("Envio exitoso.");
+      nombreInput.value = "";
+      emailInput.value = "";
+      ubicacionInput.value = "";
+      descripcionInput.value = "";
+    });
+  }
+
+  function asignarNumeroConsecutivoMantenimiento() {
+    const inputConsecutivo = document.getElementById("numeroConsecutivoMantenimiento");
+    if (!inputConsecutivo) return;
+
+    const keyConsecutivo = "ultimoNumeroMantenimientoConsecutivo";
+    const ultimo = parseInt(localStorage.getItem(keyConsecutivo) || "50000000", 10);
+    const base = Number.isNaN(ultimo) ? 50000000 : ultimo;
+    const siguiente = base + 1;
+
+    inputConsecutivo.value = String(siguiente);
+    localStorage.setItem(keyConsecutivo, String(siguiente));
+  }
+
+  function configurarSeleccionTrabajadorMantenimiento() {
+    const botonesTrabajador = document.querySelectorAll(".btn-perMantenimiento");
+    if (!botonesTrabajador.length) return;
+
+    botonesTrabajador.forEach((boton) => {
+      boton.addEventListener("click", function () {
+        botonesTrabajador.forEach((otroBoton) => {
+          otroBoton.classList.remove("btn-perMantenimiento--selected");
+        });
+
+        boton.classList.add("btn-perMantenimiento--selected");
+      });
+    });
+  }
+
+  function asignarFechaIngresoAutomatica() {
+    const fechaIngresoInput = document.getElementById("fechaIngreso");
+    if (!fechaIngresoInput) return;
+
+    const hoy = new Date().toISOString().split("T")[0];
+    fechaIngresoInput.value = hoy;
+    fechaIngresoInput.setAttribute("readonly", "true");
+    fechaIngresoInput.setAttribute("disabled", "true");
+  }
+
+  function asignarIngenieroCampoAutomatico() {
+    const ingenieroInput = document.getElementById("ingenieroCampo");
+    if (!ingenieroInput) return;
+
+    const usuarioCampo = sessionStorage.getItem("usuario") || "No registrado";
+    ingenieroInput.value = usuarioCampo;
+    ingenieroInput.setAttribute("readonly", "true");
+    ingenieroInput.setAttribute("disabled", "true");
+  }
+
   // Rellenar número en página de mantenimientos si existe
   const numeroGuardado = localStorage.getItem("numeroMantenimiento");
   const elementoNumero = document.getElementById("numeroRegistro");
   if (numeroGuardado && elementoNumero) {
     elementoNumero.textContent = numeroGuardado;
   }
+
+  asignarNumeroConsecutivoMantenimiento();
+  configurarSeleccionTrabajadorMantenimiento();
+  configurarReporteCiudadano();
 
   // Inicializar número de registro único en Ingeniero de Campo si el input existe
   const registroInput = document.getElementById("registroUnico");
@@ -66,6 +204,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const ultimoNum = parseInt(ultimoStr, 10) || 10000000;
     registroInput.value = ultimoNum;
   }
+
+  // Fecha de ingreso automática y no editable
+  asignarFechaIngresoAutomatica();
+  asignarIngenieroCampoAutomatico();
 
   // Manejo de submit en Ingeniero de Campo
   const submitBtn = document.getElementById("submit");
@@ -94,22 +236,33 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("longitud")?.value || ""
       ).trim();
       const mantenimiento = !!document.getElementById("mantenimiento")?.checked;
+      const ingenieroCampo = (
+        document.getElementById("ingenieroCampo")?.value ||
+        sessionStorage.getItem("usuario") ||
+        "No registrado"
+      ).trim();
       const comentarios = (
         document.getElementById("comentarios")?.value || ""
       ).trim();
 
-      // Validación básica
-      if (
+      const faltanCamposObligatorios =
+        !numeroRegistro ||
         !fechaIngreso ||
         !especie ||
         !emplazamiento ||
+        !circunferencia ||
         !estado ||
+        !altura ||
         !latitud ||
-        !longitud
-      ) {
-        mostrarModal(
+        !longitud;
+
+      const comentariosRequeridos = mantenimiento && !comentarios;
+
+      // Validación básica
+      if (faltanCamposObligatorios || comentariosRequeridos) {
+        mostrarModalEspecimen(
           "Campos incompletos",
-          "Por favor complete los campos requeridos: Fecha, Especie, Emplazamiento y Estado.",
+          "Complete todos los campos obligatorios. Comentarios solo es obligatorio cuando selecciona mantenimiento.",
         );
         return;
       }
@@ -125,6 +278,7 @@ document.addEventListener("DOMContentLoaded", function () {
         altura,
         ubicacion: { latitud, longitud },
         mantenimiento,
+        ingenieroCampo,
         comentarios,
         fechaRegistro: new Date().toISOString(),
       };
@@ -141,15 +295,16 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("ultimoNumeroRegistro", String(siguiente));
 
       // Éxito
-      mostrarModal(
-        "¡Registro exitoso!",
+      mostrarModalEspecimen(
+        "¡Carga exitosa!",
         `Especimen guardado con número ${numeroRegistro}. Próximo número asignado: ${siguiente}.`,
+        1500,
       );
 
       // Limpiar y preparar siguiente
       setTimeout(() => {
-        if (document.getElementById("fechaIngreso"))
-          document.getElementById("fechaIngreso").value = "";
+        asignarFechaIngresoAutomatica();
+        asignarIngenieroCampoAutomatico();
         if (document.getElementById("especie"))
           document.getElementById("especie").selectedIndex = 0;
         if (document.getElementById("emplazamiento"))
@@ -167,10 +322,10 @@ document.addEventListener("DOMContentLoaded", function () {
         if (document.getElementById("mantenimiento"))
           document.getElementById("mantenimiento").checked = false;
         if (document.getElementById("comentarios"))
-          document.getElementById("comentarios").value = "comentarios";
+          document.getElementById("comentarios").value = "";
         if (document.getElementById("registroUnico"))
           document.getElementById("registroUnico").value = String(siguiente);
-      }, 400);
+      }, 1500);
     });
   }
 });
@@ -180,19 +335,24 @@ document.addEventListener("DOMContentLoaded", function () {
 // USUARIOS SIMULADOS
 // ============= SISTEMA DE LOGIN Y CONTROL DE ACCESO =============
 
-const usuarios = [
-  // ADMINISTRADORES
-  { user: "admin1", pass: "admin123", rol: "admin" },
-  { user: "admin2", pass: "admin456", rol: "admin" },
+function normalizarRolAcceso(rol) {
+  const rolNormalizado = (rol || "").toLowerCase();
+  if (rolNormalizado.includes("admin")) return "admin";
+  if (rolNormalizado.includes("mantenimiento")) return "mantenimiento";
+  if (rolNormalizado.includes("ingeniero") || rolNormalizado.includes("campo")) return "campo";
+  return "";
+}
 
-  // MANTENIMIENTO
-  { user: "mant1", pass: "mant123", rol: "mantenimiento" },
-  { user: "mant2", pass: "mant456", rol: "mantenimiento" },
+function obtenerUsuariosLogin() {
+  const usuariosGestion = cargarUsuariosPersistidos();
 
-  // INGENIERO DE CAMPO
-  { user: "campo1", pass: "campo123", rol: "campo" },
-  { user: "campo2", pass: "campo456", rol: "campo" },
-];
+  return usuariosGestion.map((u) => ({
+    user: (u.user || "").trim(),
+    pass: (u.pass || "").trim(),
+    rol: normalizarRolAcceso(u.rol),
+    estado: (u.estado || "inactivo").toLowerCase(),
+  }));
+}
 
 function login() {
   const usuario = document.getElementById("usuario")?.value || "";
@@ -212,12 +372,23 @@ function login() {
   }
 
   // Validación de credenciales
-  const encontrado = usuarios.find(
+  const usuariosLogin = obtenerUsuariosLogin();
+  const encontrado = usuariosLogin.find(
     (u) => u.user === usuario && u.pass === password,
   );
 
   if (!encontrado) {
     mensaje.textContent = "Usuario o contraseña incorrectos";
+    return;
+  }
+
+  if (encontrado.estado !== "activo") {
+    mensaje.textContent = "Usuario inactivo. Contacte al administrador.";
+    return;
+  }
+
+  if (!encontrado.rol) {
+    mensaje.textContent = "El usuario no tiene un rol válido asignado.";
     return;
   }
 
@@ -268,47 +439,96 @@ function cerrarSesion() {
   window.location.href = "index.html";
 }
 
-// inicializacion de mapa leaftlatitud y longitud, Delimitacion.
+// Lógica de asignación de mantenimientos revertida a comportamiento estático.
 
-const map = L.map("map-ubicamap").setView([4.711, -74.0721], 13); // Centrado en Bogotá
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: "&copy; OpenStreetMap contributors",
-}).addTo(map);
+// Inicializacion de mapa Leaflet y sincronizacion con panel de detalle.
+const mapContainer = document.getElementById("map-ubicamap");
 
-// pines imaginarios
+if (mapContainer && typeof L !== "undefined") {
+  const map = L.map("map-ubicamap").setView([4.711, -74.0721], 13); // Centrado en Bogotá
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(map);
 
-const arbolesPin = [
-  {
-    id: "10000005",
-    especie: "Caucho sabanero",
-    estado: "vivo",
-    latitud: 4.7115,
-    longitud: -74.07,
-  },
-  {
-    id: "10000006",
-    especie: "Eucalipto",
-    estado: "vivo",
-    latitud: 4.709,
-    longitud: -74.0755,
-  },
-  {
-    id: "10000007",
-    especie: "Sangregado",
-    estado: "muerto",
-    latitud: 4.713,
-    longitud: -74.068,
-  },
-];
+  const arbolesPin = [
+    {
+      id: "10000005",
+      especie: "Caucho sabanero",
+      estado: "vivo",
+      latitud: 4.7115,
+      longitud: -74.07,
+      altura: "No disponible",
+      nombreCientifico: "No disponible",
+    },
+    {
+      id: "10000006",
+      especie: "Eucalipto",
+      estado: "vivo",
+      latitud: 4.709,
+      longitud: -74.0755,
+      altura: "No disponible",
+      nombreCientifico: "No disponible",
+    },
+    {
+      id: "10000007",
+      especie: "Sangregado",
+      estado: "muerto",
+      latitud: 4.713,
+      longitud: -74.068,
+      altura: "No disponible",
+      nombreCientifico: "No disponible",
+    },
+  ];
 
-// creacion de pines
+  function crearContenidoDetalle(arbol) {
+    return {
+      id: arbol.id,
+      especie: arbol.especie,
+      estado: arbol.estado,
+      altura: arbol.altura || "No disponible",
+      nombreCientifico: arbol.nombreCientifico || "No disponible",
+      ubicacion: `${arbol.latitud}, ${arbol.longitud}`,
+    };
+  }
 
-arbolesPin.forEach((arbol) => {
-  const marker = L.marker([arbol.latitud, arbol.longitud]).addTo(map);
-  marker.bindPopup(
-    `<b>ID:</b> ${arbol.id}<br><b>Especie:</b> ${arbol.especie}<br><b>Estado:</b> ${arbol.estado}`,
-  );
-});
+  function popupDesdeDetalle(detalle) {
+    return `<b>ID:</b> ${detalle.id}<br><b>Especie:</b> ${detalle.especie}<br><b>Estado:</b> ${detalle.estado}<br><b>Ubicación:</b> ${detalle.ubicacion}`;
+  }
+
+  function pintarModuloDetalle(detalle) {
+    const idEl = document.getElementById("detalle-id");
+    const especieEl = document.getElementById("detalle-especie");
+    const estadoEl = document.getElementById("detalle-estado");
+    const alturaEl = document.getElementById("detalle-altura");
+    const nombreCientificoEl = document.getElementById("detalle-nombre-cientifico");
+    const ubicacionEl = document.getElementById("detalle-ubicacion");
+
+    if (!idEl || !especieEl || !estadoEl || !alturaEl || !nombreCientificoEl || !ubicacionEl) {
+      return;
+    }
+
+    idEl.textContent = detalle.id;
+    especieEl.textContent = detalle.especie;
+    estadoEl.textContent = detalle.estado;
+    alturaEl.textContent = detalle.altura;
+    nombreCientificoEl.textContent = detalle.nombreCientifico;
+    ubicacionEl.textContent = detalle.ubicacion;
+  }
+
+  arbolesPin.forEach((arbol) => {
+    const detalle = crearContenidoDetalle(arbol);
+    const marker = L.marker([arbol.latitud, arbol.longitud]).addTo(map);
+
+    marker.bindPopup(popupDesdeDetalle(detalle));
+    marker.on("click", () => {
+      pintarModuloDetalle(detalle);
+    });
+  });
+
+  if (arbolesPin.length > 0) {
+    pintarModuloDetalle(crearContenidoDetalle(arbolesPin[0]));
+  }
+}
 
 // conexion xon base de datos simulada, futuro con API/BD real
 
@@ -329,17 +549,47 @@ arbolesPin.forEach((arbol) => {
 
   // usuarios simulados y probablemente futuros+
 
-  let usuariosNuevo = [
-    { id: 1, nombre: "Juana", apellido: "Gomez", rol: "administrador", correo: "juana_gomez01@gmail.com", estado: "activo"},
-    { id: 2, nombre: "Camilo", apellido: "Malaver", rol: "mantenimiento", correo: "camilo_malaver01@gmail.com", estado: "activo"},
-    { id: 3, nombre: "Sofia", apellido: "Lopez", rol: "ingeniero de campo", correo: "sofia_lopez01@gmail.com", estado: "activo"},
-    { id: 4, nombre: "Andres", apellido: "Perez", rol: "ingeniero de campo", correo: "andres_perez01@gmail.com", estado: "activo"},
-    { id: 5, nombre: "Maria", apellido: "Rodriguez", rol: "mantenimiento", correo: "maria_rodriguez01@gmail.com", estado: "activo"},
-    { id: 6, nombre: "Carlos", apellido: "Garcia", rol: "mantenimiento", correo: "carlos_garcia01@gmail.com", estado: "activo"},
+  const USUARIOS_STORAGE_KEY = "citytree_usuarios";
+
+  const usuariosIniciales = [
+    { id: 1, nombre: "Juana", apellido: "Gomez", rol: "administrador", correo: "juana_gomez01@gmail.com", user: "admin1", pass: "admin123", estado: "activo"},
+    { id: 2, nombre: "Camilo", apellido: "Malaver", rol: "administrador", correo: "camilo_malaver01@gmail.com", user: "admin2", pass: "admin456", estado: "activo"},
+    { id: 3, nombre: "Sofia", apellido: "Lopez", rol: "mantenimiento", correo: "sofia_lopez01@gmail.com", user: "mant1", pass: "mant123", estado: "activo"},
+    { id: 4, nombre: "Andres", apellido: "Perez", rol: "mantenimiento", correo: "andres_perez01@gmail.com", user: "mant2", pass: "mant456", estado: "activo"},
+    { id: 5, nombre: "Maria", apellido: "Rodriguez", rol: "ingeniero de campo", correo: "maria_rodriguez01@gmail.com", user: "campo1", pass: "campo123", estado: "activo"},
+    { id: 6, nombre: "Carlos", apellido: "Garcia", rol: "ingeniero de campo", correo: "carlos_garcia01@gmail.com", user: "campo2", pass: "campo456", estado: "activo"},
   ];
+
+  function cargarUsuariosPersistidos() {
+    try {
+      const usuariosGuardados = localStorage.getItem(USUARIOS_STORAGE_KEY);
+      if (!usuariosGuardados) return [...usuariosIniciales];
+
+      const usuariosParseados = JSON.parse(usuariosGuardados);
+      if (!Array.isArray(usuariosParseados) || usuariosParseados.length === 0) {
+        return [...usuariosIniciales];
+      }
+
+      return usuariosParseados;
+    } catch (error) {
+      return [...usuariosIniciales];
+    }
+  }
+
+  function guardarUsuariosPersistidos() {
+    try {
+      localStorage.setItem(USUARIOS_STORAGE_KEY, JSON.stringify(usuariosNuevo));
+    } catch (error) {
+      // Si el navegador bloquea almacenamiento, la app sigue operativa en memoria.
+    }
+  }
+
+  let usuariosNuevo = cargarUsuariosPersistidos();
 
   function pintarTabla() {
     const tbody = document.getElementById("tablaUsuarios");
+    if (!tbody) return;
+
     tbody.innerHTML = "";
 
     usuariosNuevo.forEach(usuario => {
@@ -348,12 +598,12 @@ arbolesPin.forEach((arbol) => {
           <td>${usuario.id}</td>
           <td>${usuario.nombre}</td>
           <td>${usuario.apellido}</td>
+          <td>${usuario.correo}</td>
           <td>${usuario.rol}</td>
           <td>${usuario.estado}</td>
           <td>
-        <button 
-        onclick="abrirModalEditar(${usuario.id})">Editar</button>
-        onclick="cambiarEstado(${usuario.id})"> ${usuario.estado ==="ACTIVO" ? "Inactivar" : "Activar"}</button>
+            <button onclick="abrirModalEditar(${usuario.id})">Editar</button>
+            <button onclick="cambiarEstado(${usuario.id})">${usuario.estado === "activo" ? "Inactivar" : "Activar"}</button>
           </td>
         </tr>`;
     });
@@ -362,22 +612,76 @@ arbolesPin.forEach((arbol) => {
 
   // nuevo usuario
 function abrirModalCrear() { usuarioEditando = null; 
+  const numeroDocumento = document.getElementById("numeroDocumento");
+  const nombre = document.getElementById("nombre");
+  const apellido = document.getElementById("apellido");
+  const direccion = document.getElementById("direccion");
+  const telefono = document.getElementById("telefono");
+  const correo = document.getElementById("correo");
+  const usuarioCredencial = document.getElementById("usuarioCredencial");
+  const passwordCredencial = document.getElementById("passwordCredencial");
+  const rol = document.getElementById("rol");
+  const errorEl = document.getElementById("errorFormulario");
+
+  if (numeroDocumento) numeroDocumento.value = "";
+  if (nombre) nombre.value = "";
+  if (apellido) apellido.value = "";
+  if (direccion) direccion.value = "";
+  if (telefono) telefono.value = "";
+  if (correo) correo.value = "";
+  if (usuarioCredencial) usuarioCredencial.value = "";
+  if (passwordCredencial) passwordCredencial.value = "";
+  if (rol) rol.selectedIndex = 0;
+  if (errorEl) {
+    errorEl.innerText = "";
+    errorEl.style.display = "none";
+  }
+
   mostrarModal("Nuevo Usuario");
 }
 
 //editar usuario
 let usuarioEditando = null;
 function abrirModalEditar(id) {
-  usuarioEditando = usuarios.find(u=> u.id === id);
+  usuarioEditando = usuariosNuevo.find(u => u.id === id);
+  if (usuarioEditando) {
+    const numeroDocumento = document.getElementById("numeroDocumento");
+    const nombre = document.getElementById("nombre");
+    const apellido = document.getElementById("apellido");
+    const direccion = document.getElementById("direccion");
+    const telefono = document.getElementById("telefono");
+    const correo = document.getElementById("correo");
+    const usuarioCredencial = document.getElementById("usuarioCredencial");
+    const passwordCredencial = document.getElementById("passwordCredencial");
+    const rol = document.getElementById("rol");
+    const errorEl = document.getElementById("errorFormulario");
+
+    if (numeroDocumento) numeroDocumento.value = usuarioEditando.numeroDocumento || "";
+    if (nombre) nombre.value = usuarioEditando.nombre || "";
+    if (apellido) apellido.value = usuarioEditando.apellido || "";
+    if (direccion) direccion.value = usuarioEditando.direccion || "";
+    if (telefono) telefono.value = usuarioEditando.telefono || "";
+    if (correo) correo.value = usuarioEditando.correo || "";
+    if (usuarioCredencial) usuarioCredencial.value = usuarioEditando.user || "";
+    if (passwordCredencial) passwordCredencial.value = usuarioEditando.pass || "";
+    if (rol) rol.value = usuarioEditando.rol || rol.value;
+    if (errorEl) {
+      errorEl.innerText = "";
+      errorEl.style.display = "none";
+    }
+  }
   mostrarModal("Editar usuario", usuarioEditando);
 }
  //activar / inactivar usuario
 
 function cambiarEstado(id) {
-  const usuario = usuarios.find(u => u.id === id);
+  const usuario = usuariosNuevo.find(u => u.id === id);
+
+  if (!usuario) return;
 
   if (confirm(`¿Desea ${usuario.estado === "activo" ? "inactivar" : "activar"} al usuario ${usuario.nombre} ${usuario.apellido}?`)) {
     usuario.estado = usuario.estado === "activo" ? "inactivo" : "activo";
+    guardarUsuariosPersistidos();
     pintarTabla();
   } 
 }
@@ -395,15 +699,20 @@ function cerrarModal() {
 //guardar usuarios con validacion
 
 function guardarUsuario() {
+  const numeroDocumento = document.getElementById("numeroDocumento").value.trim();
   const nombre = document.getElementById("nombre").value.trim();
   const apellido = document.getElementById("apellido").value.trim();
+  const direccion = document.getElementById("direccion").value.trim();
+  const telefono = document.getElementById("telefono").value.trim();
   const correo = document.getElementById("correo").value.trim();
+  const user = document.getElementById("usuarioCredencial").value.trim();
+  const pass = document.getElementById("passwordCredencial").value.trim();
   const rol = document.getElementById("rol").value;
 
   const errorEl = document.getElementById("errorFormulario");
 
   // validacon basica
-  if (!nombre || !apellido || !correo) {
+  if (!nombre || !apellido || !correo || !user || !pass) {
     errorEl.innerText = "Faltan campos por diligenciar";
     errorEl.style.display = "block";
     return;   
@@ -413,23 +722,65 @@ function guardarUsuario() {
     errorEl.style.display = "block";
     return;   
   }
+
+  const userNormalizado = user.toLowerCase();
+  const userDuplicado = usuariosNuevo.some((u) => {
+    if (!u.user) return false;
+    const esMismoRegistro = usuarioEditando && u.id === usuarioEditando.id;
+    return !esMismoRegistro && u.user.toLowerCase() === userNormalizado;
+  });
+
+  if (userDuplicado) {
+    errorEl.innerText = "El usuario ya existe. Ingrese uno diferente";
+    errorEl.style.display = "block";
+    return;
+  }
+
+  errorEl.innerText = "";
+  errorEl.style.display = "none";
+
   //vaLIDACION FINAL, SI TODO ESTA BIEN SE GUARDA EL USUARIO
   if (usuarioEditando) {
+    usuarioEditando.numeroDocumento = numeroDocumento;
     usuarioEditando.nombre = nombre;
     usuarioEditando.apellido = apellido;
+    usuarioEditando.direccion = direccion;
+    usuarioEditando.telefono = telefono;
     usuarioEditando.correo = correo;
+    usuarioEditando.user = user;
+    usuarioEditando.pass = pass;
     usuarioEditando.rol = rol;
   } else {
     const nuevoUsuario = {
       id: Date.now(),
+      numeroDocumento,
       nombre,
       apellido,
+      direccion,
+      telefono,
       correo,
+      user,
+      pass,
       rol,
       estado: "activo",
     };
-    usuarios.push(nuevoUsuario);
+    usuariosNuevo.push(nuevoUsuario);
   }
+  guardarUsuariosPersistidos();
   cerrarModal();
   pintarTabla();
+}
+
+function finalizarMantenimiento() {
+  const mensajeEl = document.getElementById("modalMensaje");
+  const modalConfirm = document.getElementById("modalConfirm");
+
+  if (mensajeEl && modalConfirm) {
+    mensajeEl.innerHTML = "Mantenimiento realizado";
+    modalConfirm.classList.remove("hidden");
+  }
+
+  setTimeout(() => {
+    window.location.href = "administrador.html";
+  }, 1200);
 }

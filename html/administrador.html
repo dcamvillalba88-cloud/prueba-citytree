@@ -60,9 +60,8 @@
         
         <div class="user-management list-scroll-buttons">
             <h4>Gestion de Usuarios</h4>
-            <table class="user-table">
-            <table border="1">
-                <thhead>
+            <table class="user-table" border="1">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
@@ -70,11 +69,12 @@
                         <th>Correo</th>
                         <th>Rol</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
-                </thhead>
+                </thead>
                 <tbody id="tablaUsuarios"></tbody>
             </table>
-            <button  onclick= "mostrarModal('Nuevo usuario')" class ="btn-3d btn-adminisPersonal"> Nuevo Usuario </button>
+            <button  onclick="abrirModalCrear()" class ="btn-3d btn-adminisPersonal"> Nuevo Usuario </button>
 
         </div>
     </div>
@@ -83,12 +83,14 @@
         <div class="modalUsu-contenido">
             <h3 id="tituloModal">Nuevo usuario</h3>
 
-            <label>Numero de documento</label><input type="number" id="numeroDocumento">
+            <label>Número de documento</label><input type="number" id="numeroDocumento">
             <label>Nombre</label><input type="text" id="nombre">
             <label>Apellido</label><input type="text" id="apellido">
-            <label>Direccion</label><input type="text" id="direccion">
-            <label>Telefono</label><input type="number" id="telefono">
+            <label>Dirección</label><input type="text" id="direccion">
+            <label>Teléfono</label><input type="number" id="telefono">
             <label>Correo</label><input type="email" id="correo">
+            <label>Usuario</label><input type="text" id="usuarioCredencial">
+            <label>Contraseña</label><input type="password" id="passwordCredencial">
             <label>Rol</label><select id="rol">
                 <option value="Ingeniero de campo">Ingeniero de campo</option>
                 <option value="Administrador">Administrador</option>
@@ -107,10 +109,10 @@
     <div class="card glass">
         <div class="consulta-admi">
             <h4>Consulta de especimen</h4>
-            <div class="search-bar">
+            <!-- <div class="search-bar">
                 <span class="search-icon">🔍</span>
                 <input type="text" placeholder="XXXXXXXX">
-            </div>     
+            </div> -->
     </div>        
                     <div id="map-ubicamap" class="map-ubicamap"></div>        
         </aside>
@@ -137,9 +139,9 @@
             <h3>Reporte ciudadano</h3>
             <h4>Consulta pendiente</h4>
                 <div class="list-scroll-buttons">
-                    <button class="pill btn-3d btn-reporteCiudadano">Reporte 1</button>
-                    <button class="pill btn-3d btn-reporteCiudadano">Reporte 2</button>
-                    <button class="pill btn-3d btn-reporteCiudadano">Reporte 3</button>
+                    <button class="pill btn-3d btn-reporteCiudadano" onclick="window.location.href='reporte-ciuda.html'">Reporte 1</button>
+                    <button class="pill btn-3d btn-reporteCiudadano" onclick="window.location.href='reporte-ciuda.html'">Reporte 2</button>
+                    <button class="pill btn-3d btn-reporteCiudadano" onclick="window.location.href='reporte-ciuda.html'">Reporte 3</button>
             </div>
         </section>
     </aside>
