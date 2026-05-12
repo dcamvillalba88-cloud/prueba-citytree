@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Tree - Gestión de Arbolado</title>
+    <link rel="stylesheet" href="css/prueba-citytree.css">
+</head>
+<body>
+    
+    <header class="main-header">
+        <div class="logo-section">
+            <div class="logo-placeholder"><img src="assets/icons/logo city free.png" alt="Logo City Tree"></div>
+            <div>
+                <h1>City Tree</h1>
+                <p>Plataforma de gestión de arbolado urbano</p>
+            </div>
+        </div>
+        <div><button class="btn-3d home-icon"><img src="assets/icons/icono inicio.png" alt="Inicio"></button></div>
+    </header>
+
+    <main class="container">
+        <section class="left-panel">
+            <div class="card glass">
+                <h2>Dashboard de Arbolado</h2>
+                <div class="stats-container">
+                    <div class="stat-box green-light">
+                        <span class="number">5,890</span>
+                        <span class="label">Árboles registrados</span>
+                    </div>
+                    <div class="stat-box green-medium">
+                        <span class="number">75 %</span>
+                        <span class="label">Porcentaje de avance</span>
+                    </div>
+                    <div class="stat-box green-dark">
+                        <span class="number">89</span>
+                        <span class="label">Total mantenimientos</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card glass">
+                <h2>Mapa de ubicación de especies</h2>
+                <div class="map-placeholder">
+                    <a href="html/ubicacion-especies.html" class="btn-3d btn-mapa">Mapa de árboles GPS</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="right-panel">
+            <div class="card glass login-card">
+                <h3>Login empleados</h3>
+                <input type="text" id="usuario" placeholder="Username"><br>
+                <input type="password" id="password" placeholder="Password"><br>
+                <button class="btn-3d btn-login" onclick="login()">Log In</button>
+                <p id="mensaje"></p>
+            </div>
+
+            <div class="card glass citizen-report">
+                <h3>Reporte ciudadano</h3>
+                <div class="form-group">
+                    <label>Nombre:</label> <input type="text" id="reporteNombre">
+                </div>
+                <div class="form-group">
+                    <label>Email:</label> <input type="email" id="reporteEmail">
+                </div>
+                <div class="form-group">
+                    <label>Ubicación:</label> <input type="text" id="reporteUbicacion">
+                </div>
+                <div class="form-group">
+                    <label>Descripción del problema:</label>
+                    <textarea rows="2" id="reporteDescripcion"></textarea>
+                </div>
+                <button class="btn-3d btn-enviarReporte" id="btnEnviarReporte">Enviar reporte</button>
+            </div>
+        </section>
+    </main>
+
+    <div id="modalReporte" class="modal hidden">
+        <div class="modal-box">
+            <h3>Reporte ciudadano</h3>
+            <p id="modalReporteMensaje"></p>
+            <button class="btn-modal-si" id="btnCerrarModalReporte">Aceptar</button>
+        </div>
+    </div>
+
+    <section class="news-section">
+        <h2 class="news-title">Noticias y Actualizaciones</h2>
+        <div class="news-container">
+            <div class="news-item">
+                <div class="news-header">INICIA GRAN JORNADA DE SIEMBRA 2025</div>
+                <p>Más que una actividad ambiental, la jornada de siembra es una experiencia de transformación...</p>
+            </div>
+            <div class="news-item">
+                <div class="news-header">CONVOCATORIAS DE EMPLEO INGENIEROS DE CAMPO</div>
+                <p>Para las dos primeras semanas del año 2026 se abrirán convocatorias para la contratación...</p>
+            </div>
+        </div>
+    </section>
+    
+    <script src="prueba.citytree.js"></script>
+    <script>sessionStorage.clear();</script>
+</body>
+</html>

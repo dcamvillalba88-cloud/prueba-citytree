@@ -744,6 +744,7 @@ footer {
 /* modal ingeniero de campo */
 .hidden {
     display: none;
+}
 
 .modal-title h3 {
     margin: 10px 0;

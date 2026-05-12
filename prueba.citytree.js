@@ -1,22 +1,41 @@
+// Función auxiliar para obtener la ruta correcta basada en la ubicación actual
+function getRoutePath(target) {
+  const isInSubfolder = window.location.pathname.includes('/html/') || window.location.pathname.includes('\\html\\');
+  if (isInSubfolder && !target.startsWith('../')) {
+    return '../' + target;
+  }
+  return target;
+}
+
 // Navegación básica
 function irApantallaInicio() {
-  window.location.href = "index.html";
+  const path = window.location.pathname;
+  const isInSubfolder = path.includes('/html/') || path.includes('\\html\\');
+  window.location.href = isInSubfolder ? '../index.html' : 'index.html';
 }
+
 function irAMapaUbicacionEspecies() {
-  window.location.href = "ubicacion-especies.html";
+  const path = window.location.pathname;
+  const isInSubfolder = path.includes('/html/') || path.includes('\\html\\');
+  window.location.href = isInSubfolder ? 'ubicacion-especies.html' : 'html/ubicacion-especies.html';
 }
+
 function irAPantallaAdministrador() {
-  window.location.href = "administrador.html";
+  const path = window.location.pathname;
+  const isInSubfolder = path.includes('/html/') || path.includes('\\html\\');
+  window.location.href = isInSubfolder ? 'administrador.html' : 'html/administrador.html';
 }
 
 // Modal de confirmación (usado en páginas de administración)
 function abrirModal(mensaje, accionSi) {
   const mensajeEl = document.getElementById("modalMensaje");
   const btnSi = document.getElementById("btnSi");
+  const btnNo = document.getElementById("btnNo");
   const modalConfirm = document.getElementById("modalConfirm");
   if (mensajeEl && btnSi && modalConfirm) {
     mensajeEl.innerHTML = mensaje;
     btnSi.onclick = accionSi;
+    if (btnNo) btnNo.classList.remove("hidden");
     modalConfirm.classList.remove("hidden");
   }
 }
@@ -47,7 +66,9 @@ function verDetalle(idBoton) {
   if (!boton) return;
   const numero = boton.textContent.trim();
   localStorage.setItem("numeroMantenimiento", numero);
-  window.location.href = "adm mantenimientos.html";
+  const path = window.location.pathname;
+  const isInSubfolder = path.includes('/html/') || path.includes('\\html\\');
+  window.location.href = isInSubfolder ? 'adm mantenimientos.html' : 'html/adm mantenimientos.html';
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -400,12 +421,13 @@ function login() {
   mensaje.textContent = "Acceso correcto, redirigiendo...";
 
   setTimeout(() => {
+    // Rutas correctas desde la raíz donde está index.html
     if (encontrado.rol === "admin") {
-      location.href = "administrador.html";
+      location.href = "html/administrador.html";
     } else if (encontrado.rol === "mantenimiento") {
-      location.href = "Mantenimiento.html";
+      location.href = "html/Mantenimiento.html";
     } else if (encontrado.rol === "campo") {
-      location.href = "ingenieroCampo.html";
+      location.href = "html/ingenieroCampo.html";
     }
   }, 800);
 }
@@ -417,7 +439,9 @@ function protegerPagina(rolesPermitidos) {
 
   if (!rolActual || !usuario) {
     alert("❌ ACCESO DENEGADO\n\nDebe iniciar sesión primero.");
-    window.location.href = "index.html";
+    const path = window.location.pathname;
+    const isInSubfolder = path.includes('/html/') || path.includes('\\html\\');
+    window.location.href = isInSubfolder ? '../index.html' : 'index.html';
     return false;
   }
 
@@ -425,7 +449,9 @@ function protegerPagina(rolesPermitidos) {
     alert(
       `❌ ACCESO DENEGADO\n\nUsuario: ${usuario}\nRol: ${rolActual}\n\nNo tiene permisos para acceder a esta página.`,
     );
-    window.location.href = "index.html";
+    const path2 = window.location.pathname;
+    const isInSubfolder2 = path2.includes('/html/') || path2.includes('\\html\\');
+    window.location.href = isInSubfolder2 ? '../index.html' : 'index.html';
     return false;
   }
 
@@ -436,7 +462,9 @@ function protegerPagina(rolesPermitidos) {
 function cerrarSesion() {
   sessionStorage.clear();
   alert("Sesión cerrada exitosamente");
-  window.location.href = "index.html";
+  const path = window.location.pathname;
+  const isInSubfolder = path.includes('/html/') || path.includes('\\html\\');
+  window.location.href = isInSubfolder ? '../index.html' : 'index.html';
 }
 
 // Lógica de asignación de mantenimientos revertida a comportamiento estático.
@@ -774,13 +802,30 @@ function guardarUsuario() {
 function finalizarMantenimiento() {
   const mensajeEl = document.getElementById("modalMensaje");
   const modalConfirm = document.getElementById("modalConfirm");
+  const btnSi = document.getElementById("btnSi");
+  const btnNo = document.getElementById("btnNo");
+  const fotoInput = document.getElementById("fotoEspecimen");
 
-  if (mensajeEl && modalConfirm) {
-    mensajeEl.innerHTML = "Mantenimiento realizado";
+  if (!mensajeEl || !modalConfirm || !btnSi) return;
+
+  if (btnNo) btnNo.classList.add("hidden");
+
+  if (!fotoInput || !fotoInput.files || fotoInput.files.length === 0) {
+    mensajeEl.innerHTML = "Debe cargar una foto de resultado para validar el finalizado.";
+    btnSi.textContent = "Aceptar";
+    btnSi.onclick = cerrarModal;
     modalConfirm.classList.remove("hidden");
+    return;
   }
 
+  mensajeEl.innerHTML = "Mantenimiento realizado correctamente.";
+  btnSi.textContent = "Aceptar";
+  btnSi.onclick = cerrarModal;
+  modalConfirm.classList.remove("hidden");
+
   setTimeout(() => {
-    window.location.href = "administrador.html";
+    const path = window.location.pathname;
+    const isInSubfolder = path.includes('/html/') || path.includes('\\html\\');
+    window.location.href = isInSubfolder ? 'administrador.html' : 'html/administrador.html';
   }, 1200);
 }
